@@ -1,0 +1,17 @@
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+    font-size: 120px;
+    color: Blue;
+}
+nav {
+    text-align: left;
+}
+img {
+    width: 500px;
+    height: 500px;
+}
