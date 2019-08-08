@@ -1,0 +1,184 @@
+var settings = {
+    breakpoint: '',
+};
+var i;
+
+var ads = [
+    {
+        position: 'RightRail_Top',
+        name: 'rightRail-Top-300xFlex',
+        adDiv: document.getElementById('rightRail-Top-300xFlex'),
+        adBreakpoints: [ 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'RightRail_Bottom',
+        name: 'rightRail-Bottom-300xFlex',
+        adDiv: document.getElementById('rightRail-Bottom-300xFlex'),
+        adBreakpoints: [ 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'RightRail_Middle',
+        name: 'rightRail-Middle-300xFlex',
+        adDiv: document.getElementById('rightRail-Middle-300xFlex'),
+        adBreakpoints: [ 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'RightRail_Top_Search',
+        name: 'RightRail_Top_Search',
+        adDiv: document.getElementById( 'RightRail_Top' ),
+        adBreakpoints: [ 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'Window_Bottom',
+        name: 'mobile-bottom-adhesion',
+        adDiv: document.getElementById('mobile-bottom-adhesion'),
+        adBreakpoints: [ 'verySmall', 'small', 'medium' ],
+        adWrapper: document.getElementById('ad-wrapper__mobile-bottom-adhesion'),
+        closeButton: document.getElementById('mobile-bottom-adhesion__closeButton'),
+    },
+    {
+        position: 'TopRail_Above',
+        name: 'topRail-Above',
+        adDiv: document.getElementById('topRail-Above'),
+        adBreakpoints: [ 'verySmall', 'small', 'medium', 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'TopRail_Below',
+        name: 'topRail-Below',
+        adDiv: document.getElementById('topRail-Below'),
+        adBreakpoints: [ 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'TopRail_Below_Flex',
+        name: 'topRail-Below-Flex',
+        adDiv: document.getElementById('topRail-Below-Flex'),
+        adBreakpoints: [ 'medium', 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: 'Wallpaper',
+        name: 'wallpaper',
+        adDiv: document.getElementById('wallpaper'),
+        adBreakpoints: [ 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: "Taboola_RightRail",
+        name: "taboola-rightRail",
+        adDiv: document.getElementById('taboolahybridRightRail'),
+        adBreakpoints: [ 'medium', 'large', 'veryLarge', 'extremelyLarge' ],
+    },
+    {
+        position: "Taboola_BelowArticle",
+        name: "taboola-below-article",
+        adDiv: document.getElementById('taboola-below-article-thumbnails'),
+        adBreakpoints: [ 'medium', 'large', 'veryLarge', 'extremelyLarge' ],
+    }
+];
+
+/**
+ * Injects an ad on the page.
+ * @param  {DOM Node} adToRefresh Ad node that receives the injected ad (usually a div)
+ * @param  {String} position    The name of the ad position
+ */
+function injectAd(adToRefresh, position) {
+
+    adToRefresh.innerHTML = '';
+    window.AdManager.injectUnit({
+        container: adToRefresh,
+        position: position
+    });
+    adToRefresh.classList.add('ads--no-preload');
+
+}
+
+/**
+ * Hides the ad when you click on the ad’s close button.
+ * @param  {DOM Node} adToRefresh Ad node that receives the injected ad (usually a div)
+ * @param  {String} position    The name of the ad position
+ */
+function hideAd(closeButton, closeElem, adName) {
+
+    var targetClass = 'ad-wrapper__' + adName + '--hidden';
+    closeButton.addEventListener('click', function() {
+        closeElem.classList.add(targetClass);
+    });
+
+}
+
+/**
+ * Sets the breakpoint name that we are in. This is used to decide whether some ads
+ * should be served or not.
+ */
+function getBreakpoint() {
+
+    if (window.matchMedia("(min-width: 1280px)").matches) {
+        settings.breakpoint = 'extremelyLarge';
+    } else if (window.matchMedia("(min-width: 1024px)").matches) {
+        settings.breakpoint = 'veryLarge';
+    } else if (window.matchMedia("(min-width: 980px)").matches) {
+        settings.breakpoint = 'large';
+    } else if (window.matchMedia("(min-width: 768px)").matches) {
+        settings.breakpoint = 'medium';
+    } else if (window.matchMedia("(min-width: 600px)").matches) {
+        settings.breakpoint = 'small';
+    } else {
+        settings.breakpoint = 'verySmall';
+    }
+
+}
+
+// Init Ads
+
+function initTaboola(obj) {
+    if (window.adiTrack) {
+        window.adiTrack.event({
+            action: 'opportunity',
+            category: 'ad',
+            label: 'taboola',
+        }, {
+            affiliateList: [ 'all' ],
+            nonInteraction: true,
+        });
+    }
+    window._taboola = window._taboola || [];
+    window._taboola.push(obj);
+}
+
+getBreakpoint();
+for (i = 0; i < ads.length; i++) {
+    // If the ad should be at the current viewport breakpoint, inject it.
+    // Else, remove the ad div all together.
+    if (ads[i].adDiv) {
+        if (ads[i].adBreakpoints.indexOf(settings.breakpoint) !== -1) {
+            // If it is the Taboola right rail ad
+            if (ads[i].position === 'Taboola_RightRail') {
+                initTaboola({
+                    mode: ('alternating-thumbnails-rr'),
+                    container: ('taboolahybridRightRail'),
+                    placement: ('Right Rail hybrid Thumbnails'),
+                    target_type: 'mix',
+                    flush: true,
+                });
+            }
+            if (ads[i].position === 'Taboola_BelowArticle') {
+                initTaboola({
+                    mode: ('thumbnails-feed-a'),
+                    container: ('taboola-below-article-thumbnails'),
+                    placement: ('Below Multimedia Thumbnails Feed'),
+                    target_type: 'mix',
+                    flush: true,
+                });
+            }
+            // Else, inject the ad.
+            injectAd(ads[i].adDiv, ads[i].position);
+            // If it is the Window_Bottom ad, init the close button.
+            if (ads[i].position === 'Window_Bottom') {
+                hideAd(ads[i].closeButton, ads[i].adWrapper, ads[i].name);
+                ads[i].adWrapper.style.display = 'block';
+            }
+        } else if (ads[i].position === 'Window_Bottom') {
+            ads[i].adWrapper.parentNode.removeChild(ads[i].adWrapper);
+        } else {
+            ads[i].adDiv.parentNode.removeChild(ads[i].adDiv);
+        }
+    }
+}

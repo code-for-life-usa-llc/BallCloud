@@ -1,0 +1,4682 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.paywallEnabled = exports.location = exports.getTLD = exports.getUrlComponent = exports.queryParams = exports.getUrlParameter = exports.editProfile = undefined;
+
+var _affiliate_settings = __webpack_require__(1);
+
+var _affiliate_settings2 = _interopRequireDefault(_affiliate_settings);
+
+var _locationDetails = __webpack_require__(5);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+* show gigya complete registration screen
+*/
+var editProfile = function editProfile() {
+    if (_locationDetails.locationDetails.affiliate !== "pennlive") {
+        !window.Advance.Gigya.auth.user.profile.nickname && gigya.accounts.showScreenSet({
+            screenSet: 'ADI-Test-NewLogin-RegistrationLogin',
+            startScreen: 'gigya-complete-registration-screen'
+        });
+    }
+};
+
+/**
+*  found this code somewhere in stack overflow
+*  @param {String} name - name of the parameter 
+*  @returns url parameter if one exists 
+*/
+var getUrlParameter = function getUrlParameter(name) {
+    var parsedname = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + parsedname + '=([^&#]*)');
+    var results = regex.exec(window.location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+/**
+*  found this code somewhere in stack overflow
+*  @param {String} name - name of the parameter
+*  @returns url parameter if one exists
+*/
+var queryParams = function queryParams(params) {
+    return "?" + Object.keys(params).map(function (k) {
+        return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]);
+    }).join('&');
+};
+
+/**
+*  is paywall eneabled for this lmg?
+*  @returns if the lmg is paywalled
+*/
+var getUrlComponent = function getUrlComponent(url, prop) {
+    var a = document.createElement('a');
+    a.setAttribute('href', url);
+    return a[prop];
+};
+
+var getTLD = function getTLD(url) {
+    var h = window.adiData.host.replace(/:\d+/g, '').split(".").reverse();
+    return h[0] === 'com' ? [h[1], h[0]].join(".") : 'advance.net';
+};
+
+var location = _locationDetails.locationDetails;
+
+var paywallEnabled = _affiliate_settings2.default[location.tld].tier[location.tier].pianoEnabled;
+
+exports.editProfile = editProfile;
+exports.getUrlParameter = getUrlParameter;
+exports.queryParams = queryParams;
+exports.getUrlComponent = getUrlComponent;
+exports.getTLD = getTLD;
+exports.location = location;
+exports.paywallEnabled = paywallEnabled;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    'advance.net': {
+        socialHandles: {
+            twitter: 'Advance_Digital',
+            facebook: 'AdvanceDigitalInc'
+        },
+        tier: {
+            dev: {
+                gigya: '2_LYvEyXs0b-lKWHC8sKyg6UJsgWe-W6dTtDzrzdoWOVlTo2ZWlj6n-QtxtUlX4-nK',
+                piano: null
+            },
+            prod: {
+                gigya: '2_iWsMDu4Cet-wL4cnhYjt8QrF0601c5VNEiF5aUF5UZKgpbv2PLrlUuwZzp9wlxSH',
+                piano: null
+            }
+        }
+    },
+    'al.com': {
+        socialHandles: {
+            twitter: 'aldotcom',
+            facebook: 'aldotcom'
+        },
+        tier: {
+            dev: {
+                gigya: '2_Y6KDvPqzlKvGw4bj7BED9M0bIFGDxnGS3w0uX6kVnmEx7EuWFxHqy8oYimi8s-Vk',
+                piano: 'o1cK4e7wZz'
+            },
+            prod: {
+                gigya: '2_iH8IhEn_gwBmnM4mWho_Fv8MUmWJBVQ5WRekpDXJgtW6O-rg_aeBZ4lvrJVwKL8q',
+                piano: null
+            }
+        }
+    },
+    'cleveland.com': {
+        socialHandles: {
+            twitter: 'clevelanddotcom',
+            facebook: 'clevelandcom'
+        },
+        tier: {
+            dev: {
+                gigya: '2_BHzwn7YIaLe9o1MNQWYN1Hib3GddNiXk39-EQaCEvDbSfZae1UaqS_FVzlqW3W4Y',
+                piano: 'Upv3SBLMVo'
+            },
+            prod: {
+                gigya: '2_iSv3jf0mvUEgvWUjN8lzJ-ALfc8SEqUr9-XUo10t_9684PgkUcsRVHaH_CrcIQYU',
+                piano: 'pZpDrRDtBy'
+            }
+        }
+    },
+    'gulflive.com': {
+        socialHandles: {
+            twitter: 'gulflive',
+            facebook: 'gulflive'
+        },
+        tier: {
+            dev: {
+                gigya: '2_diFq5nJmhQ7CfYf2bpnDzelp9Sb1c7D2TpO4fozR6uqNZDY52rrSpjr8p30LFU0d',
+                piano: null
+            },
+            prod: {
+                gigya: '2_W8dGEFkNXg2ejQ4WnOSkOtGrGzkxYxwpQXI6BPRaPsDRq1vuLxsXWqO_NG6bMFKa',
+                piano: null
+            }
+        }
+    },
+    'lehighvalleylive.com': {
+        socialHandles: {
+            twitter: 'lehighvalley',
+            facebook: 'lehighvalleynews'
+        },
+        tier: {
+            dev: {
+                gigya: '2_RJru-FplNxMURiy_AlvhGxbnCu3l2i-8R0QuF5sthzAMg74A7RLMwR8tsRzOC9mY',
+                piano: null
+            },
+            prod: {
+                gigya: '2_hwpnWNpiHx8F0mm6gUbmcI7q50IW0131ieE2k9-TskfOuaCWi0fKfjZSkkjGuDVU',
+                piano: null
+            }
+        }
+    },
+    'mardigras.com': {
+        socialHandles: {
+            twitter: 'nolanews',
+            facebook: 'nolanews'
+        },
+        tier: {
+            dev: {
+                gigya: '3_QOMl39aHlZhPFk6o_ulbST2ljVTc3hcx55hrRKImp-_AGbSBR6T7iScNDpmnZ9wd',
+                piano: null
+            },
+            prod: {
+                gigya: '3_e3_cGBLufvFY3tk5pZt4OOdS2rsbjTNTYobi_6mWG3tvMtzBGeDcFsIM4RDEFHiz',
+                piano: null
+            }
+        }
+    },
+    'masslive.com': {
+        socialHandles: {
+            twitter: 'masslivenews',
+            facebook: 'masslive'
+        },
+        tier: {
+            dev: {
+                gigya: '2_TPOQwAurgNrmovnrr6Q9DjyRNNvsSQTXtu7dL8Tzh9U8kDYh9R2Ar4SKpLQVIX1W',
+                piano: null
+            },
+            prod: {
+                gigya: '2_GM0T9AaeYoYO_ZSlmp3IftcvqWS6ILXeQ7yHGbWGEWHiSsGe8w4smelld_IRopCt',
+                piano: null
+            }
+        }
+    },
+    'mlive.com': {
+        socialHandles: {
+            twitter: 'mlive',
+            facebook: 'mlive'
+        },
+        tier: {
+            dev: {
+                gigya: '2_04kW8X_rz7zkdWuSaryz7Jqi3EbXx8IhS7Z7I-6sU5YM47VA-Y_aE-UBoGOgVRPO',
+                piano: 'AeIH5h5Zwc',
+                pianoEnabled: true
+            },
+            prod: {
+                gigya: '2_kemv3f8ukmqx9RTLINuAAKfnLdC9DzXkqIimlwuGu1NDP4v6j2QlqSA_--84yDcH',
+                piano: '8Gu2Z8RCvZ'
+            }
+        }
+    },
+    'nj.com': {
+        socialHandles: {
+            twitter: 'njdotcom',
+            facebook: 'NJ.com'
+        },
+        tier: {
+            dev: {
+                gigya: '2_1muNMTLsp0hng23kyQZjo3nyuA4-I5vW1mjswlpITnj_Wv3KIWA4IY8ycPzVeVhX',
+                piano: 'rrzBdMVdCZ'
+            },
+            prod: {
+                gigya: '2_zRY6653lTf2HXRO7QpNF8g-SWUmQq2fLh8M3ohojfXhjwnQgUPPtAOpWDv047OUa',
+                piano: 'mq4ucQHSOB'
+            }
+        }
+    },
+    'nola.com': {
+        socialHandles: {
+            twitter: 'nolanews',
+            facebook: 'nolanews'
+        },
+        tier: {
+            dev: {
+                gigya: '2_o-U_dL7ce6kzO6c0NipuejZimfZnObz39dPyhA7d_LjhA_7cx-vKr9FA4xf7W6xe',
+                piano: null
+            },
+            prod: {
+                gigya: '2_nroGCDkOaQ_JDxmOGfj4C0E9HV0kFwDwx5LFWIL1GQgPXGyiU6Mxn9mut0FOkTDF',
+                piano: null
+            }
+        }
+    },
+    'newyorkupstate.com': {
+        socialHandles: {
+            twitter: 'newyorkupstate',
+            facebook: 'newyorkupstate'
+        },
+        tier: {
+            dev: {
+                gigya: '3_bV39Jg1KbI_8F2YLgxNxEqabpu5uEzOOKlAFS9wjjZxxX44lPKuQyEcClgPJAbY3',
+                piano: null
+            },
+            prod: {
+                gigya: '3_kDJpbQsFDAHK5hNMoWI2rlNMMGoUhfoeT5_IgFrLH_R2qVQZw1nB1jfciZljZclw',
+                piano: null
+            }
+        }
+    },
+    'ohiohssports.com': {
+        socialHandles: {
+            twitter: 'clevelanddotcom',
+            facebook: 'clevelandcom'
+        },
+        tier: {
+            dev: {
+                gigya: '2_BHzwn7YIaLe9o1MNQWYN1Hib3GddNiXk39-EQaCEvDbSfZae1UaqS_FVzlqW3W4Y',
+                piano: null
+            },
+            prod: {
+                gigya: '2_iSv3jf0mvUEgvWUjN8lzJ-ALfc8SEqUr9-XUo10t_9684PgkUcsRVHaH_CrcIQYU',
+                piano: null
+            }
+        }
+    },
+    'oregonlive.com': {
+        socialHandles: {
+            twitter: 'oregonian',
+            facebook: 'theoregonian'
+        },
+        tier: {
+            dev: {
+                gigya: '2_XvhD7inKW0rhVg5HO2fLI5hjNd4XXJrXWg4OjKSvQjjqBVCVuKhVshxO2mmggmEU',
+                piano: 'YPTRqUvNdh'
+            },
+            prod: {
+                gigya: '2_Tefie9Yy6k1Be6-bnTwHgWAYAaqHgcm8dDlduVYGRKECmiTxQf5TK33uwZIpGURt',
+                piano: null
+            }
+        }
+    },
+    'pennlive.com': {
+        socialHandles: {
+            twitter: 'pennlive',
+            facebook: 'pennlive'
+        },
+        tier: {
+            dev: {
+                gigya: '3_tYulasZQKbf-lwlCJSCh14YAuOi6q8kB6bmhGgfHwZl0QJM2xg_H2ZsBNt2FFL6S',
+                piano: 'lyiwJjYKFk',
+                pianoEnabled: true
+            },
+            prod: {
+                gigya: '3_IaAvComy-yfFPip2SOxSpAaAN7g3S2iDklda6Ub3jknBJQZEduvkL8X_A5Izeo1Y',
+                piano: '8MqqMCr7IT',
+                pianoEnabled: true
+            }
+        }
+    },
+    'silive.com': {
+        socialHandles: {
+            twitter: 'siadvance',
+            facebook: 'statenislandadvance'
+        },
+        tier: {
+            dev: {
+                gigya: '2_fCGkoQQr95ns4DBsjMsvkdrP5gQLTWkJFUqmBRFQOB5svrs6zpCpowXQLblxPGRb',
+                piano: null
+
+            },
+            prod: {
+                gigya: '2_4ouE6Eb8FxfsbjsSK3AorB6mlSKVz34ynZ1KbycYFXshUJ82fJnITGKLDYTWfDWi',
+                piano: null
+            }
+        }
+    },
+    'syracuse.com': {
+        socialHandles: {
+            twitter: 'syracusedotcom',
+            facebook: 'syracusecom'
+        },
+        tier: {
+            dev: {
+                gigya: '3_0raCIEryxE_Zo3hWqyLxtX2tT_BVRF4VgzQKcDcwNEgwFMIHNlbZhMG3NbOE7dvA',
+                piano: '3e5ZKAmdJA',
+                pianoEnabled: true
+            },
+            prod: {
+                gigya: '3_Lt-HqYDJ471m0tzAwy4i5Gd10C4BkMXQiLq2IyU9au-hN-3PK5B4Z7IvefQ5D8tM',
+                piano: 'w76gCnIVd6',
+                pianoEnabled: true
+            }
+        }
+    }
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.pianoCallbacks = exports.logPrivateMode = exports.logCaleMessages = exports.setupAnalyticsListeners = undefined;
+
+var _adiTrack = __webpack_require__(8);
+
+var _adiTrack2 = _interopRequireDefault(_adiTrack);
+
+var _docCookies = __webpack_require__(9);
+
+var _docCookies2 = _interopRequireDefault(_docCookies);
+
+var _jsSha = __webpack_require__(10);
+
+var _jsSha2 = _interopRequireDefault(_jsSha);
+
+var _utils = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var closeTerm = void 0;
+var checkoutComplete = void 0;
+
+/**
+ * make a label that's easier on the eyes than JSON.stringify
+ * takes some data and an array of properties on that data that should get labelified.
+ * @param {Object} data - data to labelify
+ * @param {Array} arr - keys to iterate through, use all keys if not given
+ * @return {String} label data 
+ */
+var labelify = function labelify(data, arr) {
+    var arrVal = arr || Object.keys(data);
+    var getProp = function getProp(prop) {
+        return data[prop] ? prop + ': ' + JSON.stringify(data[prop]) : "";
+    }; // return value if exists
+    return arrVal.reduce(function (a, b) {
+        return getProp(b) ? '' + a + getProp(b) + '||' : a;
+    }, "").replace(/\|\|$/, ""); // return the cleaned string 
+};
+
+/**
+ * window.dataLayer is a ga thing
+ * parses out the options.type from the options and use that taylor the data to that.
+ * only send push if type is offer-selected, checkout-complete or new-user-registration
+ * @param {Object} options - data object to send to data layer
+ */
+var dataLayerPush = function dataLayerPush() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var price = options.price,
+        type = options.type,
+        adiOfferId = options.adiOfferId;
+
+    var event = {
+        'offer-selected': {
+            event: 'adiSubscribeClick',
+            adiOfferId: adiOfferId
+        },
+        'checkout-complete': {
+            event: 'adiPaymentComplete',
+            adiSubPrice: price && price.replace('$', ''),
+            adiOfferId: adiOfferId
+        },
+        'new-user-registration': {
+            event: 'adiNewEmailReg'
+        }
+    }[type];
+
+    window.dataLayer = window.dataLayer || [];
+
+    //sha256 encoded string used for bounceX
+    if (type === 'checkout-complete') {
+        var getAccountInfoResponse = function getAccountInfoResponse(response) {
+            if (response.status == 'FAIL') {
+                return;
+            }
+            var message = response.profile.email.trim().toLowerCase();
+            (0, _jsSha2.default)(message);
+            var hash = _jsSha2.default.create().update(message);
+            event.emailSha56 = hash.hex();
+            event && window.dataLayer.push(event);
+        };
+
+        window.gigya.accounts.getAccountInfo({ callback: getAccountInfoResponse });
+    } else {
+        event && window.dataLayer.push(event);
+    }
+};
+
+var logPrivateMode = function logPrivateMode() {
+    var affiliates = {
+        affiliateList: ['all']
+    };
+
+    var props = {
+        action: 'incognito',
+        category: 'paywall',
+        label: 'isPrivate: true'
+    };
+
+    _adiTrack2.default.event(props, affiliates);
+};
+
+/**
+ * analytics dispatcher - push mather, ga and datalayer events
+ * @param {Object} data - data to be processed. mutates data object by adding `eventname: type`
+ * @param {string} type - action of the data
+ */
+var analytics = function analytics(data, type) {
+
+    window._matherq = window._matherq || [];
+
+    window._matherq.push(['paywallEvent', data, { userId: Advance.Gigya.auth.user.UID }]);
+
+    var affiliates = {
+        affiliateList: ['all']
+    };
+
+    /**
+     * get label for ga 
+     * @returns a string with 'eventname', 'action', 'category', 'type', 'offers' properties seperated by || 
+    */
+    var getLabel = function getLabel() {
+        return labelify(Object.assign({}, data, { eventname: type }), ['eventname', 'action', 'category', 'type', 'offers']);
+    };
+
+    var props = {
+        action: 'modal_shown',
+        category: 'paywall',
+        label: getLabel()
+    };
+
+    _adiTrack2.default.event(props, affiliates);
+
+    // call the ga dataLayerPush with some portions of the data
+    dataLayerPush({
+        price: data.offers && data.offers.price,
+        type: type,
+        adiOfferId: data.offers && data.offers.offerId
+    });
+
+    type !== 'close_term' && _docCookies2.default.setItem('meter_progression', type, Infinity, '/');
+};
+
+var wallShown = false;
+var queueOfferShownEvent = false;
+
+// get and process data from GrandPiano iFrame message 
+var pianoCallbacks = function pianoCallbacks(data) {
+    var getOffer = function getOffer() {
+        var getTerm = function getTerm() {
+            var term = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+            var billingTable = term.billingPlanTable;
+
+            var currentBill = billingTable ? billingTable[billingTable.length - 1] : {};
+            var currentTerm = Object.keys(currentBill).length ? currentBill.billingPeriod.split(' ') : [];
+
+            return {
+                activeMeters: data.piano.activeMeters.map(function (meter) {
+                    return labelify(meter);
+                }),
+                offerId: data.piano.offerId, // OFFER ID offerId (comes from iframe JS call)
+                description: term.description,
+                name: term.name,
+                price: currentBill.price, // TERM term.chargeAmount (comes from iframe JS call)
+                per: currentBill.billingPeriod, // Interval, e.g. month (comes from iframe JS call)
+                termAmount: currentTerm[0], // Interval Length, e.g. 4 (comes from iframe JS call)
+                termUnit: currentTerm[1], // Interval, e.g. month (comes from iframe JS call)
+                displayMode: data.piano.displayMode, // "modal" or "inline" (comes from iframe JS call)
+                templateId: data.piano.templateId, // (comes from iframe JS call)
+                templateVariantId: data.piano.templateVariantId,
+                experienceId: data.piano.experienceId
+            };
+        };
+        return data.piano.selectedTerm && Object.keys(data.piano.selectedTerm).length ? getTerm(data.piano.selectedTerm) : data.piano.terms ? data.piano.terms.map(getTerm) : getTerm();
+    };
+
+    // get a cleaned offer object
+    var offers = getOffer();
+
+    offers = Array.isArray(offers) && offers.length === 1 ? offers[0] : offers;
+
+    // types shojld ordered as an array
+    // make xml
+
+    var types = {
+        'wall-shown': {
+            action: 'stop',
+            category: 'block',
+            type: 'paywall',
+            offers: offers
+        },
+
+        // internal event
+        'soft-wall-shown': {
+            action: 'modal',
+            category: 'block',
+            offers: offers
+        },
+
+        // internal event
+        'subscription-started': {
+            action: "subscriptions_started",
+            category: "payment",
+            type: "subscription",
+            offers: offers
+        },
+
+        'checkout-shown': {
+            action: 'checkout',
+            category: 'payment',
+            offers: offers
+        },
+
+        'offer-selected': {
+            action: 'subscription_selected',
+            category: 'payment',
+            offers: offers
+        }
+
+    };
+
+    // when x button is pressed on modal
+    closeTerm = {
+        action: 'abandoned',
+        category: 'payment',
+        offers: offers
+    };
+
+    checkoutComplete = {
+        action: 'completed',
+        category: 'payment',
+        offers: offers
+    };
+
+    // offer shown object
+    var subscriptionsOffered = {
+        action: 'subscriptions_offered',
+        category: 'payment',
+        offers: offers
+    };
+
+    var modalSubscriptionsStarted = {
+        action: 'subscriptions_started',
+        category: 'payment',
+        type: 'modal',
+        offers: offers
+    };
+
+    var action = data.piano.action;
+
+    // call modal-subscripteion-started when user returns from abandonment 
+    var softWallProgression = function softWallProgression() {
+        if (_docCookies2.default.getItem('meter_progression') === 'soft-wall-shown') {
+            analytics(modalSubscriptionsStarted, 'modal-subscription-started');
+        }
+    };
+
+    // call subscriptions-offered comes after wall-shown 
+    if (action === 'offer-shown') {
+        if (wallShown) {
+            queueOfferShownEvent = false;
+            analytics(subscriptionsOffered, 'subscriptions-offered');
+            softWallProgression();
+        } else {
+            queueOfferShownEvent = true;
+        }
+    }
+
+    if (types[action]) {
+
+        // when we get a 'wall-shown', then -> subscriptions-offered
+        if (action === 'wall-shown') {
+            var el = document.querySelector('.tp-close');
+            var soft = !(el && getComputedStyle(el).display === 'none');
+
+            // regex matches where they are 
+            var fromRegPage = data.piano.isLandingPage || Boolean(window.location.href.match(/\:\/\/[^/]+?\/(subscribe|piano|digitalsubscription|learnmore)/));;
+
+            action = soft ? 'soft-wall-shown' : fromRegPage ? 'subscription-started' : action;
+
+            wallShown = true;
+
+            // if we got an offer-shown before the paywall, wait before dispatching the event one tick after we send a wall-shown event
+            if (queueOfferShownEvent) {
+                setTimeout(function () {
+                    softWallProgression();
+                    analytics(subscriptionsOffered, 'subscriptions-offered');
+                }, 1);
+                queueOfferShownEvent = false;
+            }
+        }
+        // if we have an action listed in the types dictionary, then call analytics with it.
+        analytics(types[action], action);
+    }
+};
+
+// listen for piano events
+var setupAnalyticsListeners = function setupAnalyticsListeners() {
+
+    // from piano if user clicks the x button
+    window.tp.push(["addHandler", "checkoutClose", function (event) {
+        return event.state === 'close' && analytics(closeTerm, "close-term");
+    }]);
+
+    // from piano if user clicks the x button
+    window.tp.push(["addHandler", "checkoutComplete", function () {
+        return analytics(checkoutComplete, "checkout-complete");
+    }]);
+
+    // gigya event
+    window.addEventListener('newUserLogin.adi', function () {
+        return analytics({
+            category: 'registration', action: 'completed', type: 'paywall'
+        }, "new-user-registration");
+    });
+
+    //follow user across site 
+
+    var storeUserCookies = function storeUserCookies() {
+        return _docCookies2.default.setItem('pageviewid', window.Advance.Gigya.auth.user.UID);
+    };
+
+    var removeUserCookies = function removeUserCookies() {
+        return _docCookies2.default.removeItem('pageviewid');
+    };
+
+    // when gigya attempts to log someone in
+    window.addEventListener('getAccountInfo.adi', storeUserCookies);
+
+    window.addEventListener('onLogout.adi', removeUserCookies);
+
+    window.addEventListener('noUser.adi', removeUserCookies);
+};
+
+var logCaleMessages = function logCaleMessages(data) {
+    return _docCookies2.default.setItem('cale_results', data.response + '||' + data.message);
+};
+
+exports.setupAnalyticsListeners = setupAnalyticsListeners;
+exports.logCaleMessages = logCaleMessages;
+exports.logPrivateMode = logPrivateMode;
+exports.pianoCallbacks = pianoCallbacks;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(4);
+__webpack_require__(17);
+module.exports = __webpack_require__(18);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _utils = __webpack_require__(0);
+
+var _affiliate_settings = __webpack_require__(1);
+
+var _affiliate_settings2 = _interopRequireDefault(_affiliate_settings);
+
+var _piano_loader = __webpack_require__(6);
+
+var _piano_loader2 = _interopRequireDefault(_piano_loader);
+
+var _tools = __webpack_require__(16);
+
+var _tools2 = _interopRequireDefault(_tools);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } // https://wiki.advance.net/display/social/Advance+Gigya+API+Abstraction+Library+-+adv_gigya.js
+
+/* jshint ignore:start */
+
+/* IE8 & IE9 shims */
+/* Patch for 'bind' in IE8 */
+/* istanbul ignore next */
+
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+        if (typeof this !== 'function') {
+            // closest thing possible to the ECMAScript 5
+            // internal IsCallable function
+            throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+        }
+
+        var aArgs = Array.prototype.slice.call(arguments, 1),
+            fToBind = this,
+            fNOP = function fNOP() {},
+            fBound = function fBound() {
+            return fToBind.apply(this instanceof fNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+
+        fNOP.prototype = this.prototype;
+        fBound.prototype = new fNOP();
+
+        return fBound;
+    };
+}
+
+/* Patch for 'btoa' and 'atob' base64 encoding in IE8 & 9 */
+/* istanbul ignore next */(function () {
+    var base64 = {};
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+    function InvalidCharacterError(message) {
+        this.message = message;
+    }
+    InvalidCharacterError.prototype = new Error();
+    InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+    // encoder
+    // [https://gist.github.com/999166] by [https://github.com/nignag]
+    base64.btoa = window.btoa ? function (input) {
+        return window.btoa(input);
+    } : function (input) {
+        for (
+        // initialize result and counter
+        var block, charCode, idx = 0, map = chars, output = '';
+        // if the next input index does not exist:
+        //   change the mapping table to "="
+        //   check if d has no fractional digits
+        input.charAt(idx | 0) || (map = '=', idx % 1);
+        // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+        output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+            charCode = input.charCodeAt(idx += 3 / 4);
+            if (charCode > 0xFF) {
+                throw new InvalidCharacterError("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+            }
+            block = block << 8 | charCode;
+        }
+        return output;
+    };
+
+    // decoder
+    // [https://gist.github.com/1020396] by [https://github.com/atk]
+    base64.atob = window.atob ? function (input) {
+        return window.atob(input);
+    } : function (input) {
+        input = input.replace(/=+$/, '');
+        if (input.length % 4 == 1) {
+            throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+        }
+        for (
+        // initialize result and counters
+        var bc = 0, bs, buffer, idx = 0, output = '';
+        // get next character
+        buffer = input.charAt(idx++);
+        // character found in table? initialize bit storage and add its ascii value;
+        ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+        // and if not first of each 4 characters,
+        // convert the first 8 bits to one ascii character
+        bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+            // try to find character in table (0-63, not found => -1)
+            buffer = chars.indexOf(buffer);
+        }
+        return output;
+    };
+
+    window.btoa = window.btoa || base64.btoa;
+    window.atob = window.atob || base64.atob;
+})();
+
+/* jshint ignore:end */
+
+/* Advance.Gigya */(function () {
+    'use strict';
+    /* istanbul ignore next */
+
+    if (typeof window.console === "undefined" || typeof window.console.log === "undefined" || typeof window.console.warn === "undefined" || typeof window.console.debug === "undefined" || typeof window.console.info === "undefined") {
+        window.console = {
+            log: function log() {},
+            info: function info() {},
+            debug: function debug() {},
+            warn: function warn() {}
+        };
+    }
+    /* istanbul ignore next */
+    if (!window.Advance) {
+        window.Advance = {};
+    }
+
+    var ADIGigya = function ADIGigya() {
+        var _this = this;
+
+        var self = this;
+        // This library is a singleton that registers itself to the global namespace at window.Advance.Gigya
+        if (window.Advance.Gigya) {
+
+            window.Advance.Gigya.debug("Gigya already loaded!");
+            return window.Advance.Gigya;
+        }
+        window.Advance.Gigya = this;
+
+        // Combination of TLD [sic] and Tier determines which API Key to use
+        this.tld = _utils.location.tld;
+        this.tier = _utils.location.tier;
+        this.tierSuffix = _utils.location.tierSuffix;
+
+        this.fn = {}; // Namespace of public API
+        this.uri = _utils.location.uri; // Default if link is not passed to share APIs
+        this.shortenedURLs = {}; // Store shortened URLs to avoid unnecessary duplicate requests
+
+        this.settings = {
+            page: {}, // Create namespace for applications to place custom information for share APIs
+            emailTemplate: "$sender$ sent:<br /><br />$userMsg$<br/><br />-----<br /><br />$URL$<br/><br />$title$<br/>$description$",
+            key: _affiliate_settings2.default[this.tld].tier[this.tier].gigya,
+            pianoKey: _affiliate_settings2.default[this.tld].tier[this.tier].piano,
+            socialHandles: _affiliate_settings2.default[this.tld].socialHandles
+        };
+        this._gigyaProtocol = 'https:'; // Stub to empty string in tests to make them run in PhantomJS
+        this._blocked = false; // true when socialize.js loading is in progress
+        this.ready = false; // This is set to true once socialize.js is loaded
+        this.pianoReady = false; // This is set to true once piano has loaded via tinypass
+        this.$el = undefined; // script element created during loading of socialize.js
+        this._ga = {}; // Namespace of Google Analytics stuff
+        this._use_case = {}; // Namespace of internal use case scripts
+        this._promises = {}; // Used to share promises between functions
+        //  this._promises.share_experiment = window.jQuery.Deferred(); // ugh - for an optimizely test
+        this.subscribers = {}; // Store event subscribers
+        this.shareUIs = {
+            showShareBarUI: {},
+            showShareUI: {},
+            flyout: {}
+        }; // Store configs for all Share widget instances
+        this.auth = { // Namespace of auth functions
+            mt: { // Legacy Movable Type cookie support
+                cookieTimeout: 14400,
+                cookieName: "mt_blog_user",
+                sessionCookieName: "mt_commenter",
+                cookieDomain: _utils.location.host.replace(/([0-9a-z\-]+?\.)+([0-9a-z\-]+?\.[a-z]{3})/, '.$2'),
+                cookiePath: "/"
+            },
+            user: {} // Response from getAccountInfo API stored here
+        };
+        this._normalizeScriptInjected = false; // Temporary "Normalization Interceptor" script; see auth.normalize
+
+        // debug definition
+        this._debug = Boolean(_utils.location.hash.match(/gigyadebug/));
+        this.debug = function () {
+            if (this._debug) {
+                var args = Array.prototype.slice.call(arguments, 0);
+                //  console.log( "%cAdvance.Gigya", 'color: #00CC70', args ); // Print debug messages in marvelous technicolor
+            }
+        };
+
+        // Really IE9 or below
+        var isIE9 = Boolean(_tools2.default.browser() && _tools2.default.browser().name === 'IE' && _tools2.default.browser().vesion < 10);
+        // Tests if touch events are supported, but doesn't necessarily reflect a touchscreen device
+        this.isTouch = Boolean("ontouchstart" in window || window.matchMedia('(pointer: coarse)').matches);
+        // Phone detection for text button in share bar
+        this.isPhone = this.isTouch && window.matchMedia("only screen and (max-width: 767px)").matches;
+        this.isiPhone = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        this.clickEvent = this.isiPhone ? 'touchstart' : 'click';
+        this.keyToClick = function (evt, el) {
+            if (evt.keyCode === 13 || evt.keyCode === 32) {
+                el.click();
+            }
+        };
+
+        // All this to eliminate race condition on legacy MT pages -- UGLY
+        /* istanbul ignore next */
+        if (window.m_context !== "hssn_page") {
+            window.gigya = false; // Legacy MT page checks that window.gigya is 'undefined'. Technically, now it isn't.
+        }
+
+        // Run queued tasks on Gigya script load event
+        var rq = function rq() {
+            _this._runQueue();
+            window.removeEventListener('gigyaReady.aid', rq);
+        };
+
+        window.addEventListener('gigyaReady.adi', rq);
+
+        // Inject Gigya share bar styles
+        this._injectStyles = function () {
+            var stylelink = document.createElement("link");
+            var styleTier = _utils.location.tierSuffix;
+            stylelink.href = _utils.location.protocol + '//static' + styleTier + '.advance.net/static/common/css/adv_gigya_share.css';
+            stylelink.type = "text/css";
+            stylelink.rel = "stylesheet";
+            document.head.appendChild(stylelink);
+            this.debug('styles injected');
+        };
+        this._injectStyles();
+
+        this._queue = [];
+        this._enqueue = function (opts) {
+            this.debug("Queueing task:", opts);
+            this._queue.push(opts);
+        };
+        this._runQueue = function () {
+            for (var i = 0; i < this._queue.length; i++) {
+                var task = this._queue[i];
+                this.debug("Running queued task:", task);
+                this.fn[task.fn].apply(this, task.params);
+            }
+            this._queue = [];
+        };
+
+        this._redirect = function (destination) {
+            // Stub for tests
+            window.location.href = destination;
+        };
+
+        this._searchToObject = function () {
+            return window.document.location.search.substring(1).split('&').reduce(function (result, value) {
+                var parts = value.split('=');
+                if (parts[0]) {
+                    result[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+                }
+                return result;
+            }, {});
+        };
+
+        this._eventsFactory = function (opts) {
+            var self = this;
+            var makeHandler = function makeHandler(eventName, customHandler) {
+                return function (data) {
+                    this.fn.broadcast(eventName + '.adi', data);
+
+                    if (typeof customHandler === 'function') {
+                        customHandler(data);
+                    }
+                }.bind(self);
+            };
+            for (var i = 0; i < opts.events.length; i++) {
+                opts.obj[opts.events[i]] = makeHandler(opts.namespace + '-' + opts.events[i], opts.obj[opts.events[i]]);
+            }
+        };
+
+        this._ga.trackEventDefaults = {
+            action: undefined,
+            category: "social",
+            label: "gigya_share_bar"
+        };
+
+        this._ga.createTrackEvent = function (opts) {
+            return Object.assign({}, this._ga.trackEventDefaults, opts);
+        }.bind(this);
+
+        this._ga.track = function (opts) {
+            var adiTrackEvent = this._ga.createTrackEvent(opts);
+            var affConfig = { affiliateList: ['all'] };
+            /* istanbul ignore else */
+            if (window.adiTrack) {
+                this.debug("Tracking event:", adiTrackEvent);
+                window.adiTrack.event(adiTrackEvent, affConfig);
+            } else {
+                this.debug("adiTrack library is not present to track event:", adiTrackEvent);
+            }
+        }.bind(this);
+
+        this._ga.trackShareButtonClick = function (data) {
+            this._ga.track(this._ga.createTrackEvent({
+                action: 'gigya_share_click_' + data.shareItem.provider
+            }));
+        }.bind(this);
+
+        this.fn.subscribe = function (eventName, callback, caller) {
+            if (!eventName || typeof callback !== 'function') {
+                return;
+            }
+            if (!this.subscribers[eventName]) {
+                this.subscribers[eventName] = {};
+            }
+            if (!caller) {
+                caller = "unknown";
+            }
+            this.subscribers[eventName][window.btoa(JSON.stringify({
+                eventName: eventName,
+                caller: caller,
+                callback: callback.toString()
+            }))] = {
+                caller: caller,
+                callback: callback
+            };
+            this.debug("New subscriber", eventName, callback, caller);
+
+            window.addEventListener(eventName, callback);
+        }.bind(this);
+
+        this.fn.unsubscribe = function (eventName, callback, caller) {
+            if (!eventName || typeof callback !== 'function') {
+                return;
+            }
+            if (!caller) {
+                caller = "unknown";
+            }
+            this.debug("Unsubscribing", eventName, callback);
+            try {
+                delete this.subscribers[eventName][window.btoa(JSON.stringify({
+                    eventName: eventName,
+                    caller: caller,
+                    callback: callback.toString()
+                }))];
+            } catch (e) {
+                this.debug("Unable to purge from subscriber list", {
+                    eventName: eventName,
+                    caller: caller,
+                    callback: callback.toString()
+                });
+            }
+            window.removeEventListener(eventName, callback);
+        }.bind(this);
+
+        this.fn.createEvent = function (eventName, eventData) {
+            if (typeof window.CustomEvent === 'function') {
+                return new CustomEvent(eventName, { detail: eventData });
+            }
+            /* IE */
+            var params = {
+                bubbles: false, cancelable: false, detail: eventData
+            };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(eventName, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+
+        this.fn.broadcast = function (eventName, eventData) {
+            /* old style, jQuery-based */
+            //this.$el.trigger( eventName, eventData );
+            /* new style, JS-only */
+            var event = this.fn.createEvent(eventName, eventData);
+            window.dispatchEvent(event);
+        }.bind(this);
+
+        // Attach to all the '.adi-share-auto's on the page (Markup API)
+        this.fn.evaluateShareMarkup = function () {
+            var _this2 = this;
+
+            var els = document.querySelectorAll('.adi-share-auto');
+            var config;
+            //var self = this;
+            els.forEach(function (el) {
+
+                if (self.shareUIs.flyout[el.getAttribute('id')] || self.shareUIs.showShareBarUI[el.getAttribute('id')]) {
+                    _this2.debug('fn.evaluateShareMarkup aborted, already built share widget for ContainerID ' + el.getAttribute('id'));
+                } else {
+                    config = self._markup2config(el);
+                    if (config.desc !== undefined && config.desc.length === 0) {
+                        config.desc = " ";
+                    }
+                    if (el.classList.contains('adi-share-flyout')) {
+                        _this2.fn.buildShareFlyout(config);
+                    } else {
+                        _this2.fn.buildGigyaShareBar(config);
+                    }
+                }
+            });
+        }.bind(this);
+
+        /* Abstraction of 'showShareBarUI' Gigya API.  http://developers.gigya.com/020_Client_API/010_Socialize/socialize.showShareBarUI
+         - Implements default values (user can override via 'params')
+         - URL shortening
+         - Aggregate count
+         - Custom 'More' flyout
+         - SMS button on phones (custom, not a Gigya native button)
+         */
+        this.fn.buildGigyaShareBar = function (opts) {
+
+            var self = this;
+            self.debug('fn.buildGigyaShareBar called with opts:', Object.assign({}, opts));
+            var params = Object.assign({}, self.shareBarDefaults, opts);
+            if (self.shareUIs.showShareBarUI[params.containerID]) {
+                self.debug('fn.buildGigyaShareBar aborted, already built share bar for ContainerID "' + params.containerID + '"');
+                return;
+            }
+            params.onShareButtonClicked = params.onShareButtonClicked || function (data) {
+                this._ga.trackShareButtonClick(data);
+            }.bind(self);
+
+            if (window.gigya) {
+                // What URL are we sharing?  1) link as parameter, 2) link from settings.page, 3) document.location
+                params.link = params.link ? params.link : self.settings.page.link ? self.settings.page.link : self.uri;
+                params.originalLink = params.link;
+                params.moreShareButtons = params.moreShareButtons || [];
+
+                var containerID = document.getElementById('' + params.containerID);
+                if (!containerID) {
+                    containerID = document.createElement('div');
+                }
+                var _originalOnLoad = params.onLoad;
+                params.onLoad = function (data) {
+
+                    if (typeof _originalOnLoad === 'function') {
+                        _originalOnLoad(data);
+                    }
+
+                    if (params.includeSMS && self.isPhone) {
+                        var smsURL = _utils.location.origin + _utils.location.pathname + '#incart_sms';
+                        // android: <a href="sms:/* phone number here */?body=/* body text here */">Link</a>
+                        // ios: <a href="sms:/* phone number here */;body=/* body text here */">Link</a>
+                        var delimiter = self.isiPhone ? '&' : '?';
+                        _tools2.default.append(containerID, '<div class="gig-button-container-sms gig-button-sms" title="SMS" alt="SMS" role="button" aria-label="SMS Text" tabindex="0"><div class="sharer"></div></div>');
+                        _tools2.default.on(containerID.querySelector('.gig-button-sms'), self.clickEvent, function () {
+                            self.fn.shortenURL(smsURL).then(function (link) {
+                                link = encodeURIComponent(link);
+                                var smsMessage = encodeURIComponent(self.settings.page.title || document.title) + '%20' + link;
+                                if (decodeURIComponent(smsMessage).length > 149) {
+                                    smsMessage = smsURL;
+                                }
+                                self._redirect('sms:' + delimiter + 'body=' + smsMessage);
+                            });
+                            self._ga.track({
+                                action: "gigya_share_click_sms"
+                            });
+                        });
+                    }
+
+                    if (params.showMore) {
+                        var moreBtnContainerID = data.containerID + '-more';
+                        _tools2.default.append(containerID, '<div class="gig-button-container-more gig-button-more" title="More share options" alt="More share options" role="navigation" aria-label="main" aria-expanded="false" id="' + moreBtnContainerID + '" tabindex="0"><div class="sharer"></div></div>');
+                        self.fn.buildShareFlyout({
+                            containerID: moreBtnContainerID,
+                            shareButtons: params.moreShareButtons.slice(0),
+                            link: params.originalLink,
+                            label: 'More share options:',
+                            destroyOnClose: false,
+                            includeSMS: false,
+                            relativePosition: params.direction,
+                            onShareButtonClicked: params.onShareButtonClicked
+                        });
+
+                        containerID.classList.add(self.shareBarDefaults.elClass + '-flyout');
+                        _tools2.default.on('.gig-button-more', self.clickEvent, function () {
+                            self._ga.track({
+                                action: "gigya_share_click_more"
+                            });
+                        });
+                    }
+                    if (params.showAggregateCount) {
+                        var countBtnContainerID = data.containerID + '-count';
+                        window.gigya.socialize.getProviderShareCounts({
+                            URL: params.originalLink,
+
+                            // TODO: Until Socialize.getProviderShareCounts is updated for new endpoints/throttling
+                            // we will be excluding Delicious and StumbleUpon networks for that count so we
+                            // don't get the console errors.
+                            disabledProviders: 'VKontakte, delicious, stumbleupon',
+                            callback: function callback(response) {
+                                self.debug("getProviderShareCounts response:", response);
+                                var total = 0;
+                                if (response.errorCode === 0) {
+                                    for (var k in response.shareCounts) {
+                                        total += response.shareCounts[k];
+                                    }
+                                    if (total >= params.aggregateCountThreshold) {
+                                        if (total > 999) {
+                                            total = parseFloat((total * 0.001).toFixed(1)) + 'k';
+                                        }
+                                        _tools2.default.append(containerID, '<div class="gig-count-total" id="' + countBtnContainerID + '">\n                                                <span class="total">' + total + ' share' + (total === 1 ? '' : 's') + '</span>\n                                            </div>');
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    if (params.containerID === 'social_share_desktop') {
+                        Advance.Social.sticky(params.sticky.start, params.sticky.end);
+                    }
+                };
+
+                self._eventsFactory({
+                    obj: params,
+                    events: ['onSendDone', 'onShareButtonClicked', 'onLoad', 'onError'],
+                    namespace: 'showShareBarUI'
+                });
+
+                params.userAction = params.userAction || self.fn.buildUserAction(params);
+
+                // For CSS targetting, swapping new share bar into old share bar container
+                if (!containerID) {
+                    console.log(params.containerID);
+                }
+                containerID.classList.add(self.shareBarDefaults.elClass, 'horizontal');
+                containerID.setAttribute('data-layout', params.layout);
+
+                window.gigya.socialize.showShareBarUI(params);
+                self.shareUIs.showShareBarUI[params.containerID] = params; // Store for debugging
+                self.debug('window.gigya.socialize.showShareBarUI called by fn.buildGigyaShareBar', params);
+            } else {
+                self.debug("buildGigyaShareBar: gigya not ready, NOT building share bar");
+                self._enqueue({
+                    fn: 'buildGigyaShareBar',
+                    params: [opts]
+                });
+            }
+        }.bind(this);
+
+        this.fn.showGigyaShareUI = function (opts) {
+            var self = this;
+            var params = Object.assign({}, opts); // make test assertions easier
+            self.debug('fn.showGigyaShareUI', opts);
+            if (window.gigya) {
+
+                self._eventsFactory({
+                    obj: params,
+                    events: ['onSendDone', 'onClose', 'onLoad', 'onError'],
+                    namespace: 'showShareUI'
+                });
+
+                var shareParams = Object.assign({
+                    userAction: params.userAction || self.fn.buildUserAction(params),
+                    shortURLs: 'never', // never use the gigya shortened urls (for twitter)
+                    showAlwaysShare: 'unchecked',
+                    showNeverShare: false,
+                    operationMode: window.Modernizr && window.Modernizr.touch ? 'simpleShare' : 'multiSelect',
+                    enabledProviders: 'twitter,facebook,linkedin,yahoo',
+                    userMessagePlaceholder: 'Your message...',
+                    showTooltips: true,
+                    showEmailButton: Boolean(self.auth.isLogged()),
+                    useEmailCaptcha: true,
+                    emailBody: self.settings.emailTemplate,
+                    deviceType: window.Modernizr && window.Modernizr.touch ? 'mobile' : 'desktop'
+                }, params);
+
+                window.gigya.socialize.showShareUI(shareParams);
+                self.debug("gigya.socialize.showShareUI called by fn.showGigyaShareUI", shareParams);
+            } else {
+                self.debug("showGigyaShareUI: gigya not ready, NOT displaying Share UI");
+                self._enqueue({
+                    fn: 'showGigyaShareUI',
+                    params: [opts]
+                });
+            }
+        }.bind(this);
+
+        this.fn.buildShareFlyout = function (opts) {
+            var self = this;
+            if (!opts) {
+                return;
+            }
+            if (self.shareUIs.flyout[opts.containerID]) {
+                self.debug('fn.buildShareFlyout aborted, already built flyout for ContainerID "' + opts.containerID + '"');
+                return;
+            }
+            if (window.gigya) {
+                self.debug("buildShareFlyout called with opts:", Object.assign({}, opts));
+                var $moreContainer;
+                var $triggerEl = document.querySelector('#' + opts.containerID);
+                opts.shareButtons = opts.shareButtons || [].concat(this.shareBarDefaults.shareButtons, this.shareBarDefaults.moreShareButtons);
+                opts.label = opts.label || "Share via:";
+                opts.relativePosition = opts.relativePosition || "south";
+                typeof opts.link === "function" ? opts.inputShortUrl = opts.link() : opts.inputShortUrl = opts.link;
+                this.fn.shortenURL(opts.inputShortUrl).then(function (link) {
+                    opts.inputShortUrl = link;
+                    self.debug('opts.inputShortUrl: ' + opts.inputShortUrl);
+                });
+
+                // For Galleries or Comments other dynamically generated useractions
+                var userActionFunctions = {
+                    link: undefined,
+                    title: undefined,
+                    desc: undefined,
+                    thumbnail: undefined
+                };
+                for (var i in userActionFunctions) {
+                    if (typeof opts[i] === 'function') {
+                        userActionFunctions[i] = opts[i];
+                    }
+                }
+
+                var _populate = function _populate(e) {
+
+                    self.debug("buildShareFlyout: Bound element clicked");
+                    e.stopPropagation();
+
+                    var moreContainerID = opts.containerID + '-more-share';
+
+                    var _checkAncestor = function _checkAncestor(src, anc) {
+                        if (!src.parentNode.className) {
+                            return false;
+                        }
+                        do {
+                            src = src.parentNode;
+                        } while (src.parentNode !== document.body && src.className.indexOf(anc) < 0);
+                        return src.className.indexOf(anc) >= 0;
+                    };
+
+                    var _bodyFlyoutOffEvent = function _bodyFlyoutOffEvent(e) {
+                        if (_checkAncestor(e.srcElement, 'flyout-anchor') === true) {
+                            return false;
+                        }
+                        self.debug("buildShareFlyout: body element clicked to close flyout");
+                        e.stopPropagation();
+                        document.body.removeEventListener(self.clickEvent, _bodyFlyoutOffEvent, true);
+                        document.removeEventListener("keydown", _escEvent, true);
+                        _checkAncestor(e.srcElement, 'flyout-anchor') === false && e.srcElement.className === 'sharer' ? window.setTimeout(flyoutOff, 0) : flyoutOff();
+                    };
+
+                    var flyoutOff = function flyoutOff() {
+                        if (opts.destroyOnClose) {
+                            $moreContainer.parentElement && $moreContainer.parentElement.removeChild($moreContainer);
+                            $moreContainer = undefined;
+                            $triggerEl.setAttribute('aria-expanded', 'false');
+                            delete self.shareUIs.flyout[opts.containerID];
+                            delete self.shareUIs.showShareBarUI[moreContainerID];
+                        } else {
+                            $moreContainer.style.display = "none";
+                            $triggerEl.setAttribute('aria-expanded', 'false');
+                        }
+                    };
+
+                    var _escEvent = function _escEvent(e) {
+                        if (e.keyCode === 27) {
+                            flyoutOff();
+                            document.body.removeEventListener(self.clickEvent, _bodyFlyoutOffEvent, true);
+                            document.removeEventListener("keydown", _escEvent, true);
+                        }
+                    };
+
+                    document.body.addEventListener(self.clickEvent, _bodyFlyoutOffEvent, true);
+                    document.addEventListener("keydown", _escEvent, true);
+
+                    if ($moreContainer && window.getComputedStyle($moreContainer).display !== 'none') {
+                        //( ":visible" ) ) {
+                        flyoutOff();
+                    } else {
+
+                        for (var k in userActionFunctions) {
+                            if (typeof userActionFunctions[k] === 'function') {
+                                opts.destroyOnClose = true; // enable destroyOnClose if any useraction param is a function, to enable redrawing of share bar
+                                opts[k] = userActionFunctions[k]();
+                            }
+                        }
+
+                        // if the flyout does not exsit, build it
+                        if (!document.querySelectorAll('#' + moreContainerID).length) {
+
+                            var flyoutParent = document.querySelector('#' + opts.containerID);
+                            var isiPhone = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                            var isReadOnly = isiPhone === true ? '' : 'readonly';
+                            self.debug('buildShareFlyout: #' + moreContainerID + ' element not found, creating');
+                            $moreContainer = _tools2.default.makeElement('<div class="flyout-anchor"><div class="gig-more-flyout ' + moreContainerID + '-container"><h2>' + opts.label + '</h2><div id="' + moreContainerID + '"></div><input value="' + opts.inputShortUrl + '" ' + isReadOnly + '  aria-label="Link to article"/></div></div>');
+                            $moreContainer.classList.add(opts.relativePosition);
+
+                            // insert flyout anchor into sharebar
+                            // (window.jQuery('#' + opts.containerID).hasClass(self.shareBarDefaults.elClass + '-flyout')) ? window.jQuery('#' + opts.containerID).prepend($moreContainer) : window.jQuery('#' + opts.containerID).closest('.' + self.shareBarDefaults.elClass + '-flyout').prepend($moreContainer);
+                            _tools2.default.prepend(document.getElementById(opts.containerID), $moreContainer);
+
+                            self.fn.buildGigyaShareBar({
+                                showAggregateCount: false,
+                                showMore: false,
+                                includeSMS: 'includeSMS' in opts ? opts.includeSMS : true,
+                                shareButtons: opts.shareButtons.slice(0),
+                                layout: 'horizontal',
+                                containerID: moreContainerID,
+                                link: opts.link,
+                                desc: opts.desc,
+                                title: opts.title,
+                                thumbnail: opts.thumbnail,
+                                onShareButtonClicked: opts.onShareButtonClicked
+                            });
+
+                            _tools2.default.on($moreContainer, self.clickEvent, function (e) {
+                                e.stopPropagation();
+                            });
+
+                            _tools2.default.on('input', self.clickEvent, function (e) {
+                                e.target.setSelectionRange(0, 9999);
+                            });
+                        }
+
+                        // toggle direction if flyout is out of view
+                        var elBounds = document.body.getBoundingClientRect();
+                        var flyEl = document.body.querySelector('.flyout-anchor');
+                        if (opts.relativePosition === 'north' || opts.relativePosition === 'south') {
+                            if (elBounds.top <= 145) {
+                                flyEl.setAttribute('class', 'flyout-anchor south');
+                            } else if (elBounds.bottom >= (window.innerHeight - 145 || document.documentElement.clientHeight - 145)) {
+                                flyEl.setAttribute('class', 'flyout-anchor north');
+                            }
+                        }
+
+                        var _shiftFocus = function _shiftFocus(moreEl) {
+                            document.activeElement.blur();
+                            var childEls = moreEl.querySelectorAll('.flyout-anchor .sharer');
+                            var _checkLoop = function _checkLoop() {
+                                for (var i = 0; i < childEls.length; i++) {
+                                    if (childEls[i].offsetHeight > 0) {
+                                        childEls[i].focus();
+                                        i = childEls.length;
+                                    }
+                                }
+                            };
+                            setTimeout(_checkLoop, 200);
+                        };
+
+                        $moreContainer.style.display = '';
+                        $triggerEl.setAttribute('aria-expanded', 'true');
+                        _shiftFocus($moreContainer.firstElementChild);
+                    }
+                };
+
+                _tools2.default.on($triggerEl, self.clickEvent, _populate);
+                _tools2.default.on($triggerEl, 'keypress', function (e) {
+                    if (e.keyCode === 13 || e.keyCode === 32) {
+                        _populate.call($triggerEl[0], e);
+                    }
+                });
+
+                if (opts.autoSpawn) {
+                    self.debug("buildShareFlyout: autospawning");
+                    setTimeout(function () {
+                        $triggerEl.click();
+                    }, 0);
+                }
+                self.shareUIs.flyout[opts.containerID] = opts; // Store for debugging
+            } else {
+                self.debug("buildShareFlyout: gigya not ready, NOT displaying Flyout");
+                self._enqueue({
+                    fn: 'buildShareFlyout',
+                    params: [opts]
+                });
+            }
+        }.bind(this);
+
+        this.fn.buildUserAction = function (opts) {
+            opts = opts || {};
+            if (window.gigya) {
+                // What URL are we sharing?  1) link as parameter, 2) link from settings.page, 3) document.location
+                var params = Object.assign({}, this.settings.page, opts); // make test assertions easier
+                params.link = params.link || this.uri;
+                params.title = params.title || window.document.title.replace(/\s+?\-\s+?[a-z]+?\.com\s*$/i, ''); // Page title is default, but strip domain.com off the end of title
+                var ua = new window.gigya.socialize.UserAction();
+                ua.setLinkBack(params.link);
+                ua.addActionLink("Read more...", params.link);
+                if (params.title) {
+                    ua.setTitle(params.title);
+                }
+                if (params.subtitle) {
+                    ua.setSubtitle(params.subtitle);
+                }
+                if (params.userMessage) {
+                    ua.setUserMessage(params.userMessage);
+                }
+                if (params.desc) {
+                    ua.setDescription(params.desc);
+                }
+                if (params.thumbnail) {
+                    ua.addMediaItem({
+                        type: "image",
+                        src: params.thumbnail,
+                        href: params.link
+                    });
+                }
+                self.debug('fn.buildUserAction built UserAction object with:', params);
+
+                return ua;
+            }
+            self.debug('Gigya not found, fn.buildUserAction doing nothing');
+            return false;
+        }.bind(this);
+
+        this._markup2config = function (el) {
+            var cfg = {},
+                attrib,
+                key,
+                val,
+                exploded;
+            if (typeof el === "string") {
+                el = document.getElementById(el);
+            }
+            if (!el) {
+                return {};
+            }
+            for (var i = 0; i < el.attributes.length; i++) {
+                attrib = el.attributes[i];
+                val = attrib.value;
+                if (attrib.name.match(/data\-/)) {
+                    key = attrib.name.replace(/data\-/, "");
+                    if (key.match(/-/)) {
+                        // Turn 'data-some-thing' attr to key 'someThing'
+                        exploded = key.split('-');
+                        for (var j = 1; j < exploded.length; j++) {
+                            exploded[j] = exploded[j].charAt(0).toUpperCase() + exploded[j].slice(1);
+                        }
+                        key = exploded.join('');
+                    }
+                    if (val === 'true' || val === 'false') {
+                        val = JSON.parse(val);
+                    }
+                    cfg[key] = val;
+                }
+                if (attrib.name === 'id') {
+                    cfg.containerID = val;
+                }
+            }
+
+            return cfg;
+        };
+
+        this.fn.shortenURL = function (link) {
+            var self = this;
+            var d;
+            if (!link) {
+                self.debug('fn.shortenURL got no link!');
+                //d = window.jQuery.Deferred();
+                return Promise.resolve(self.uri); //d.resolve( self.uri ).promise();
+            }
+            if (this.shortenedURLs[link]) {
+                self.debug('fn.shortenURL already resolved that link!');
+                self._promises[link].resolve(this.shortenedURLs[link]);
+                return self._promises[link].promise;
+            }
+            if (self._promises[link]) {
+                self.debug('URL shortening is in process!', link);
+                return self._promises[link].promise;
+            }
+            self._promises[link] = {};
+            self._promises[link].promise = new Promise(function (resolve, reject) {
+                return self._promises[link].resolve = resolve;
+            });
+            self.debug('fn.shortenURL', link);
+            window.gigya.socialize.shortenURL({
+                URL: link,
+                callback: function callback(resp) {
+                    /* istanbul ignore else */
+                    if (resp.errorCode === 0) {
+                        self.shortenedURLs[link] = resp.shortURL;
+                        self.debug("gigya.socialize.shortenURL returned successfully:", resp);
+                        self._promises[link].resolve(resp.shortURL);
+                    } else {
+                        self.debug("gigya.socialize.shortenURL returned an error:", resp);
+                        self._promises[link].resolve(link);
+                    }
+                }
+            });
+            return self._promises[link].promise;
+        }.bind(this);
+
+        this.auth.logout = function () {
+            window.gigya.accounts.logout();
+        };
+
+        this.auth.login = function (opts) {
+            opts = opts || {};
+
+            var params = {
+                screenSet: opts.screenSet ? opts.screenSet : window.Modernizr && window.Modernizr.touch ? "ADI-Mobile-RegistrationLogin" : "ADI-RegistrationLogin",
+                containerID: opts.containerID || undefined,
+                startScreen: opts.startScreen || undefined,
+                context: opts.context || {},
+                customLang: opts.myLanguage || {
+                    account_is_disabled: ['syracuse.com', 'gulflive.com'].indexOf(this.tld) > -1 ? 'This account is disabled.<br />Please log in using your e-mail address.' : 'Account is disabled'
+                }
+            };
+
+            this._eventsFactory({
+                obj: params,
+                events: ['onHide', 'onFieldChanged', 'onBeforeSubmit', 'onAfterSubmit', 'onBeforeScreenLoad', 'onAfterScreenLoad', 'onError'],
+                namespace: 'RegistrationLogin'
+            });
+
+            // params.onBeforeValidation = function( event ) {
+            //     var self = this;
+            //     var submittedEmail = event.formData['profile.email'];
+            //     var profileEmail = event.profile.email;
+            //     var submittedBirthYear = event.formData['profile.birthYear'];
+            //     var error = null;
+            //     if ( event.screen === 'gigya-complete-registration-screen' && submittedEmail !== profileEmail ) { // TODO: may need to skip the email validation only for IMPORTED MEMBERS accounts
+            //         error = new Promise( function( resolve ) {
+            //             gigya.accounts.isAvailableLoginID( {
+            //                 loginID: submittedEmail,
+            //                 callback( response ) {
+            //                     if ( response.isAvailable ) {
+            //                         resolve();
+            //                     } else {
+            //                         resolve( {
+            //                             'profile.email': 'This email address is unavailable',
+            //                         } );
+            //                     }
+            //                     self.fn.broadcast( 'RegistrationLogin-onBeforeValidation.adi', event );
+            //                 },
+            //             } );
+            //         } );
+            //     }
+            //     // COPPA
+            //     if ( [ 'gigya-complete-registration-screen', 'gigya-register-screen-initial' ].indexOf( event.screen ) > -1 ) {
+            //         if ( new Date().getFullYear() - submittedBirthYear < 14 ) {
+            //             error = {
+            //                 'profile.birthYear': 'You must be 13 years of age or older to register.',
+            //             };
+            //         }
+            //     }
+            //     return error;
+            // }.bind( this );
+            this.fn.subscribe("RegistrationLogin-onAfterScreenLoad.adi", function () {
+                var ua = navigator.userAgent || navigator.vendor || window.opera;
+                if (ua.match(/FBAN|FBAV/)) {
+                    // remove all the social login stuff and change the text up to remove the 'Or' part of the 'Or enter your username'
+                    [].concat(_toConsumableArray(document.querySelectorAll('.with-social-login'))).forEach(function (e) {
+                        return e.parentElement.removeChild(e);
+                    });
+                    [].concat(_toConsumableArray(document.querySelectorAll('.gigya-layout-cell.responsive.with-site-login > .gigya-composite-control.gigya-composite-control-header'))).forEach(function (e) {
+                        return e.innerText = "Enter your username:";
+                    });
+                }
+            });
+
+            window.gigya.accounts.showScreenSet(params);
+        }.bind(this);
+
+        /* LaaS cache clear initiation after profile update */
+        this.auth.initiateCachePurge = function (callback) {
+            var self = this;
+            fetch('https://laas' + self.tierSuffix + '.advance.net/gigya/purge/', {
+                method: "POST",
+                body: JSON.stringify({
+                    UID: self.auth.user.UID,
+                    UIDSignature: self.auth.user.UIDSignature,
+                    signatureTimestamp: self.auth.user.signatureTimestamp
+                }) }).then(function (response) {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                return response.json();
+            }).then(function () {
+                var json = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+
+                var laas = document.querySelector('#laas-cache-clear-error');
+                laas && laas.parentElement.removeChild(laas);
+                /* istanbul ignore else */
+
+                if (Boolean(typeof callback === 'function')) {
+                    callback(json);
+                }
+            }).catch(function (e) {
+                self.debug("LaaS cache purge request error:", e);
+                var style = 'color:red; font-weight:bold; padding:10px, font-size: 14px';
+                var err = '<div id="laas-cache-clear-error" class="laas-error-msg" style=' + style + '>There was an error updating your profile.  Please try again.</div>';
+                _tools2.default.append(document.querySelector('#adv_gigya_tr_profile .gigya-composite-control-submit'), err);
+            });
+        }.bind(this);
+
+        this.auth.editProfile = function (opts) {
+            var self = this;
+            opts = opts || {};
+
+            var params = {
+                screenSet: opts.screenSet ? opts.screenSet : window.Modernizr && window.Modernizr.touch ? "ADI-Mobile-ProfileUpdate" : "ADI-ProfileUpdate",
+                containerID: opts.containerID || undefined,
+                startScreen: opts.startScreen || undefined,
+                context: opts.context || {},
+                customLang: opts.myLanguage || {}
+            };
+
+            this._eventsFactory({
+                obj: params,
+                events: ['onHide', 'onFieldChanged', 'onBeforeSubmit', 'onBeforeScreenLoad', 'onAfterScreenLoad', 'onError'],
+                namespace: 'ProfileUpdate'
+            });
+            // This one is special, don't emit event until after ping2pull success
+            params.onAfterSubmit = function (eventData) {
+                this.auth.initiateCachePurge(function () {
+                    this.fn.broadcast('ProfileUpdate-onAfterSubmit.adi', eventData);
+                    this.auth.getUser();
+                }.bind(this));
+            }.bind(this);
+
+            params.onBeforeValidation = function (event) {
+                var self = this;
+                var email = event.formData.email;
+                if (event.screen === 'gigya-update-profile-screen' && email) {
+                    return new Promise(function (resolve) {
+                        gigya.accounts.isAvailableLoginID({
+                            loginID: email,
+                            callback: function callback(response) {
+                                if (response.isAvailable) {
+                                    resolve();
+                                } else {
+                                    gigya.accounts.getAccountInfo({
+                                        include: 'emails',
+                                        callback: function callback(response) {
+                                            if (response.emails.verified.indexOf(email) > -1) {
+                                                resolve();
+                                            } else {
+                                                resolve({
+                                                    email: 'This email address is unavailable'
+                                                });
+                                            }
+                                            self.fn.broadcast('ProfileUpdate-onBeforeValidation.adi', event);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    });
+                }
+            }.bind(this);
+
+            window.gigya.accounts.showScreenSet(params);
+        }.bind(this);
+
+        this.auth._secureAvatars = function (data) {
+            var self = this;
+            var insecureUrlPrefix = 'http://';
+            var secureUrlPrefix = 'https://';
+
+            var _convert2https = function _convert2https(url) {
+                if (url) {
+                    url = url.replace(insecureUrlPrefix, secureUrlPrefix).replace('//cdn.', '//cdns.');
+                }
+                return url;
+            };
+
+            if (data.profile.photoURL && data.profile.photoURL.match(insecureUrlPrefix) || data.profile.thumbnailURL && data.profile.thumbnailURL.match(insecureUrlPrefix)) {
+                self.debug("Correcting avatar URLs", [data.profile.photoURL, data.profile.thumbnailURL]);
+                data.profile.photoURL = _convert2https(data.profile.photoURL);
+                data.profile.thumbnailURL = _convert2https(data.profile.thumbnailURL);
+                window.gigya.accounts.setAccountInfo({
+                    profile: {
+                        photoURL: data.profile.photoURL,
+                        thumbnailURL: data.profile.thumbnailURL
+                    },
+                    callback: function callback(response) {
+                        self.debug("_secureAvatars: Gigya setAccountInfo response", response);
+                    }
+                });
+            };
+
+            return data;
+        }.bind(this);
+
+        this.auth.createUserMethod = function (goodEventName, badEventName, cb) {
+            return function () {
+                var self = this;
+                window.gigya.accounts.getAccountInfo({
+                    include: 'loginIDs, emails, profile, data',
+                    extraProfileFields: 'username',
+                    callback: function callback(response) {
+                        self.debug("Fetched getAccountInfo response from Gigya", response);
+
+                        if (response.errorCode === 0) {
+                            self.auth.user = self.auth._secureAvatars(response);
+                            cb ? cb() : self.fn.broadcast(goodEventName, self.auth.user);
+                        } else {
+                            self.auth.user = {};
+                            cb ? cb() : self.fn.broadcast(badEventName, self.auth.user);
+                        }
+                    }
+                });
+            }.bind(this);
+        }.bind(this);
+
+        // instead of having a cb command, this should be promise based.  This is a temporary fix to not cause an infinite loop in some cases
+        this.auth.refreshUserTokenCB = function (cb) {
+            return _this.auth.createUserMethod('', '', cb);
+        };
+        this.auth.refreshUserToken = this.auth.createUserMethod('accountInfoRefreshed.adi', 'refreshError.adi');
+        this.auth.getUser = this.auth.createUserMethod('getAccountInfo.adi', 'notLoggedIn.adi');
+
+        this.auth.isLogged = function () {
+            if ('isActive' in this.auth.user) {
+                return this.auth.user.isActive; // getAccountInfo response
+            }
+            return Boolean(this.auth.user.UID); // login response
+        }.bind(this);
+
+        this.auth._initUserSession = function () {
+            var _this3 = this;
+
+            var self = this;
+            self.debug("Initializing user session with Gigya");
+            window.gigya.accounts.addEventHandlers({
+                onLogin: function onLogin(eventData) {
+                    self.debug('Gigya.accounts "onLogin" event', eventData);
+                    self.auth.user = self.auth._secureAvatars(eventData);
+                    if (self.auth.user.newUser) {
+                        self.debug('New user!');
+                        self.fn.broadcast('newUserLogin.adi', self.auth.user);
+                    }
+
+                    self.fn.broadcast('onLogin.adi', self.auth.user);
+                    self.auth.getUser();
+                },
+                onLogout: function onLogout(eventData) {
+                    self.debug('gigya.accounts "onLogout" event', eventData);
+                    self.auth.user = {};
+                    self.auth.mt.logout(); // Delete MT cookies
+                    self.fn.broadcast('onLogout.adi', eventData);
+                },
+                callback: function callback(val) {
+                    window.gigya.accounts.getAccountInfo({
+                        callback: function callback(getAccountInfoResponse) {
+                            if (getAccountInfoResponse.status === "FAIL") {
+                                self.fn.broadcast('noUser.adi');
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Refresh MT cookies on 'getAccountInfo' call, which should always be initiated via this.auth.getUser()
+            this.fn.subscribe('getAccountInfo.adi', this.auth.mt.login, 'Advance.Gigya.auth._initUserSession.mt_cookie');
+            // Gigya normalization
+            this.fn.subscribe('getAccountInfo.adi', this.auth.normalize, 'Advance.Gigya.auth._initUserSession.normalize');
+
+            this.fn.subscribe('getAccountInfo.adi', _utils.editProfile);
+            this.fn.subscribe('newUserLogin.adi', function () {
+                _this3.fn.unsubscribe('getAccountInfo.adi', _utils.editProfile);
+            });
+
+            this.auth.getUser();
+        }.bind(this);
+
+        this.auth.normalize = function (event, data) {
+            if (!window.location.host.match(/^localhost/) && ['gulflive.com'].indexOf(this.tld) > -1 && !this._normalizeScriptInjected) {
+
+                if (this.auth.user.data.isNormalized === true) {
+                    this.debug('User is already normalized');
+                    return;
+                }
+                if (this.auth.user.data.audit && this.auth.user.data.audit.axe && this.auth.user.data.audit.axe.action === 'ignored') {
+                    this.debug('User is ignored; will not load normalizer');
+                    return;
+                }
+
+                this.debug('Injecting Gigya normalization script...');
+                var normalizeJS = document.createElement('script');
+                normalizeJS.src = 'https://static' + this.tierSuffix + '.advance.net/static/social/gigya/dist/adv_gigya-normalize.bundle.js';
+                document.body.appendChild(normalizeJS);
+                this._normalizeScriptInjected = true;
+            }
+        }.bind(this);
+
+        /* Set MT cookies, refresh iframe in Forums if applicable */
+        // Set mt_commenter (session) and mt_blog_user (user info) cookies (mostly copied from movabletype.js)
+        this.auth.mt.login = function () {
+            /* istanbul ignore next */
+            if (!this.auth.user.UID) {
+                return;
+            } // Don't do anything if we don't have a user
+            if (this.auth.isLogged() === false) {
+                // Clear cookies if our user is banned
+                this.auth.mt.logout();
+                self.debug('MT: This user is not active.  Deleting cookies...');
+                return;
+            }
+
+            self.debug('MT: Logging in, setting cookies, creating "user" global');
+
+            var user = this.auth.user;
+            window.user = this.auth.mt.userObjFromGigya();
+
+            var expires = new Date();
+            var skew = new Date(0).getTime();
+            /* istanbul ignore next */
+            if (skew > 0) {
+                expires.setTime(expires.getTime() - skew);
+            }
+
+            this.auth.mt.setCookie(this.auth.mt.cookieName, this.auth.mt.userObjToString(window.user));
+            this.auth.mt.setCookie(this.auth.mt.sessionCookieName, this.auth.mt.createSession());
+
+            /* istanbul ignore next */
+            if (_utils.location.href.toLowerCase().match('/forums/')) {
+                setTimeout(window.frames[1].location.reload(), 700);
+            }
+        }.bind(this);
+
+        /* Delete MT cookies */
+        this.auth.mt.logout = function () {
+            self.debug('MT: Logging out, deleting cookies, blanking out "user"');
+            window.user = null;
+            var cookies = [this.auth.mt.cookieName, this.auth.mt.sessionCookieName];
+            for (var i = 0; i < cookies.length; i++) {
+                this.auth.mt.setCookie(cookies[i], "", "Thu, 01-Jan-70 00:00:01 GMT");
+            }
+        }.bind(this);
+
+        /* Intercept any legacy calls to MT */
+        /* istanbul ignore next */
+        this.auth.mt._patchLegacyFunctions = function () {
+            window.mtClearUser = function () {};
+            window.mtSignInOnClick = this.auth.login;
+            window.mtSignOutOnClick = this.auth.logout;
+        }.bind(this);
+
+        /* MT Set Cookie (from movabletype.js) */
+        this.auth.mt.setCookie = function (name, value, expires) {
+            self.debug('MT: Setting cookie "' + name + '" with value: ' + value);
+
+            var domain = this.auth.mt.cookieDomain;
+
+            /* istanbul ignore next */
+            if (domain && (domain.match(/^\.?localhost(:\d+?)$/) || domain.match(/\b(?:\d{1,3}\.){2}\d{1,3}\b/))) {
+                domain = null;
+            }
+            value = escape(value).replace(/%7E/gi, "~"); // we need tilde unescaped
+
+            document.cookie = name + '=' + value + (expires ? '; expires=' + expires : "") + '; path=' + this.auth.mt.cookiePath + (domain ? '; domain=' + domain : "") + (_utils.location.protocol == 'https:' ? "; secure" : "");
+        }.bind(this);
+
+        /* Combine UID/UIDSignature/signatureTimestamp into unified session token */
+        this.auth.mt.createSession = function () {
+            return btoa(JSON.stringify({
+                UID: this.auth.user.UID,
+                UIDSignature: this.auth.user.UIDSignature,
+                signatureTimestamp: this.auth.user.signatureTimestamp
+            }));
+        }.bind(this);
+
+        /* Turn response from Gigya into legacy global 'user' object */
+        this.auth.mt.userObjFromGigya = function () {
+            var user = this.auth.user;
+            if (!user.UID) {
+                return null;
+            }
+            return {
+                name: user.profile.nickname ? user.profile.nickname : user.profile.firstName ? user.profile.firstName + ' ' + user.profile.lastName : user.username,
+                url: 'http://connect' + this.tierSuffix + '.' + this.tld + '/user/' + user.profile.username + '/index.html',
+                email: user.profile.email ? user.profile.email.replace(/[a-zA-Z]/g, function (c) {
+                    return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+                }) : null,
+                userid: user.UID,
+                profile: user.profile.username,
+                userpic: user.profile.photoURL,
+                sid: this.auth.mt.createSession(),
+                is_authenticated: user.isActive ? 1 : 0,
+                is_anonymous: 0,
+                is_trusted: user.isActive ? 1 : 0,
+                is_author: user.isActive ? 1 : 0,
+                is_banned: user.isActive ? 0 : 1,
+                can_post: user.isActive ? 1 : 0,
+                can_comment: user.isActive ? 1 : 0,
+                session_start: user.lastLogin,
+                auth_type: 'Gigya'
+            };
+        }.bind(this);
+
+        // MT Bake User Cookie (mostly copied from movabletype.js)
+        this.auth.mt.userObjToString = function (user) {
+            var str = "";
+
+            var mtEscapeJS = function mtEscapeJS() {
+                var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+
+                return s.replace(/'/g, "'");
+            };
+
+            str += 'name:\'' + mtEscapeJS(user.name) + '\';';
+            str += 'url:\'' + mtEscapeJS(user.url) + '\';';
+            if (user.email) {
+                str += 'email:\'' + mtEscapeJS(user.email) + '\';';
+            }
+            str += 'userid:\'' + mtEscapeJS(user.userid) + '\';';
+            str += 'is_authenticated:\'' + user.is_authenticated + '\';';
+            str += 'profile:\'' + mtEscapeJS(user.profile) + '\';';
+            if (user.userpic) {
+                str += 'userpic:\'' + mtEscapeJS(user.userpic) + '\';';
+            }
+            str += 'sid:\'' + mtEscapeJS(user.sid) + '\';';
+            str += 'is_trusted:\'' + user.is_trusted + '\';';
+            str += 'is_author:\'' + user.is_author + '\';';
+            str += 'is_banned:\'' + user.is_banned + '\';';
+            str += 'can_post:\'' + user.can_post + '\';';
+            str += 'can_comment:\'' + user.can_comment + '\'';
+
+            return str;
+        };
+
+        this.fn.loadScript = function (src, callback) {
+            var self = this;
+            callback = callback || function () {
+                var gsrs = this.readyState;
+                /* istanbul ignore next */
+                if (gsrs && gsrs != 'complete' && gsrs != 'loaded') {}
+            };
+            var gs = document.createElement('script');
+            gs.src = src;
+            gs.type = 'text/javascript';
+            gs.async = 'true';
+            gs.onload = gs.onreadystatechange = callback;
+            var gst = document.getElementsByTagName('script')[0];
+            gst.parentNode.insertBefore(gs, gst);
+        }.bind(this);
+
+        this.fn.loadPiano = function () {
+            _piano_loader2.default.load({
+                that: this, broadcast: this.fn.broadcast, loadScript: this.fn.loadScript, pianoKey: this.settings.pianoKey, _searchToObject: this._searchToObject, pianoReady: this.pianoReady
+            });
+        }.bind(this);
+
+        this.fn.loadSocialize = function () {
+            var self = this;
+            var resolve = void 0,
+                reject = void 0;
+            // not self._promises.loadSocialize.state() === 'pending' because of pages with old jquery
+            self._promises.loadSocialize = self._promises.loadSocialize && self._blocked === true ? self._promises.loadSocialize : new Promise(function (_resolve, _reject) {
+                resolve = _resolve;reject = _reject;
+            });
+            self.debug('fn.loadSocialize called');
+            if (self._blocked === true) {
+                // Loading is in progress!
+                self.debug("Double load of socialize.js attempted");
+                return self._promises.loadSocialize;
+            }
+            if (!window.gigya) {
+                // Prevent double-load
+                self._blocked = true;
+                var onreadystatechange = function onreadystatechange() {
+                    var gsrs = this.readyState;
+                    /* istanbul ignore next */
+                    if (!self._blocked || gsrs && gsrs != 'complete' && gsrs != 'loaded') {
+                        return;
+                    }
+                    self.debug("fn.loadSocialize complete");
+                    self._blocked = false;
+                    self.ready = true;
+                    self.fn.broadcast('gigyaReady.adi');
+                    resolve(true);
+                };
+                this.fn.loadScript(self._gigyaProtocol + '//cdns.gigya.com/js/socialize.js?apiKey=' + self.settings.key, onreadystatechange);
+            } else {
+                self.debug("Second load of socialize.js intercepted");
+                resolve(false);
+            }
+            return self._promises.loadSocialize;
+        }.bind(this);
+
+        this.fn.ready = this.fn.loadSocialize; /* nicer alias */
+
+        // These help create test conditions for unit tests.
+        this._use_case._clientWidth = function () {
+            return window.innerWidth;
+        }; // Use jQ to normalize between browsers/devices
+        this._use_case._itemBelowFold = function (item) {
+            return item.length > 0 ? item.offset().top > window.innerWidth : false;
+        };
+
+        // For new share bar, store defaults here for easy reference
+        this.shareBarDefaults = {
+            // Ours
+            elClass: 'adi-share',
+            showAggregateCount: true,
+            aggregateCountThreshold: 0,
+            showMore: true,
+            includeSMS: true,
+            // Theirs
+            shareButtons: [{
+                provider: 'facebook',
+                tooltip: 'Recommend this on Facebook',
+                action: 'recommend'
+            }, {
+                provider: 'twitter',
+                tooltip: 'Recommend this on Twitter'
+            }, {
+                provider: 'email',
+                tooltip: 'Email this'
+            }],
+            moreShareButtons: [{
+                provider: 'WhatsApp',
+                tooltip: 'WhatsApp'
+            }, {
+                provider: 'reddit',
+                tooltip: 'Post this to Reddit'
+            }, {
+                provider: 'pinterest',
+                tooltip: 'Pin this'
+            }, {
+                provider: 'linkedin',
+                tooltip: 'Linked In'
+            }, {
+                provider: 'tumblr',
+                tooltip: 'Tumblr'
+            }],
+            useEmailCaptcha: true,
+            buttonTemplate: '<div class="sharer" onclick="$onClick" role="button" alt="Share" title="Share" tabindex="0" onkeydown="Advance.Gigya.keyToClick(event, this)"></div>',
+            buttonWithCountTemplate: '<div class="sharer" onclick="$onClick" role="button" alt="Share" tabindex="0" title="Share" onkeydown="Advance.Gigya.keyToClick(event, this)"></div><span class="count">$count</span>',
+            showTooltips: 'true', // [sic]
+            wrap: 'true', // [sic]
+            deviceType: this.isPhone ? 'mobile' : 'desktop',
+            showCounts: 'none',
+            layout: 'horizontal',
+            shortURLs: 'never', // never use the gigya shortened urls (for twitter)
+            emailBody: this.settings.emailTemplate
+        };
+
+        // Build share bars on article pages automatically (new version)
+        this._use_case.article = function (params) {
+            // This takes params, because optimizely
+            var self = this;
+            var config = {},
+                elId,
+                layout;
+            params = params || {};
+            var viewports = {
+                legacy: {
+                    view: document.querySelector('#social_mobile .social_simple'),
+                    container: null,
+                    layout: null,
+                    direction: null,
+                    sticky: null,
+                    debug: '_use_case.article: .social_simple found & visible, aborting',
+                    build: false
+                },
+                desk: {
+                    view: document.querySelector('#social_share_desktop'),
+                    container: 'social_share_desktop',
+                    layout: 'horizontal',
+                    direction: 'east',
+                    sticky: {
+                        start: '#article', end: '.entry-content'
+                    },
+                    debug: '_use_case.article: using #social_share_desktop',
+                    build: true
+                },
+                phone: {
+                    view: document.querySelector('#social_share_phone'),
+                    container: 'social_share_phone',
+                    layout: 'horizontal',
+                    direction: 'south',
+                    sticky: null,
+                    debug: '_use_case.article: using #social_share_phone',
+                    build: true
+                },
+                tablet: {
+                    view: document.querySelector('#social_mobile'),
+                    container: 'social_mobile',
+                    layout: 'horizontal',
+                    direction: 'south',
+                    sticky: null,
+                    debug: '_use_case.article: using #social_mobile',
+                    build: true
+                },
+                hssndesk: {
+                    view: document.querySelector('#social_top'),
+                    container: 'social_share_desktop',
+                    layout: 'horizontal',
+                    direction: 'east',
+                    sticky: {
+                        start: '#section_title', end: '.sticky-sharebar-bottom'
+                    },
+                    debug: '_use_case.article: using #social_top',
+                    build: true
+                }
+            };
+
+            var viewResults = {
+                legacy: viewports.legacy.view && window.getComputedStyle(viewports.legacy.view).display !== 'none',
+                desk: viewports.desk.view && window.getComputedStyle(viewports.desk.view).display !== 'none',
+                phone: viewports.phone.view && window.getComputedStyle(viewports.phone.view).display !== 'none',
+                tablet: viewports.tablet.view && window.getComputedStyle(viewports.tablet.view).display !== 'none' && viewports.phone.view && window.getComputedStyle(viewports.phone.view).display === 'none',
+                hssndesk: viewports.hssndesk.view && window.getComputedStyle(viewports.hssndesk.view).diplay !== 'none' && window.getComputedStyle(viewports.tablet.view).display === 'none' && !viewports.desk.view
+            };
+
+            var hssnViewUpdate = function hssnViewUpdate() {
+                document.querySelector('#section_title').insertAdjacentHTML('beforebegin', '<div class="social_sidebar sticky"></div>');
+                var sidebar = document.querySelector('.social_sidebar.sticky');
+                var comments = document.querySelector('.CommentCount');
+                if (comments !== null) {
+                    sidebar.appendChild(comments);
+                }
+                sidebar.insertAdjacentHTML('beforeend', '<div id="social_share_desktop"></div>');
+            };
+
+            // build based on viewport result
+            var buildView = function buildView(thisView) {
+                if (thisView.view.id === 'social_top') {
+                    hssnViewUpdate();
+                }
+                self.debug(thisView.debug);
+                if (thisView.build === true) {
+                    params.containerID = thisView.container;
+                    params.layout = thisView.layout;
+                    params.direction = thisView.direction;
+                    params.sticky = thisView.sticky;
+                    self.fn.buildGigyaShareBar(params);
+                }
+            };
+
+            // Skip this script on legacy pages -- UGLY
+            if (typeof window.buildGigyaShareBar !== 'undefined') {
+                return;
+            } // HSSN
+            if (window.m_context === "blog_entry" && JSON.stringify(self.settings.page) === "{}") {
+                return;
+            } // MT
+
+            // check against viewports for build
+            for (var prop in viewResults) {
+                if (viewResults.hasOwnProperty(prop)) {
+                    if (viewResults[prop] === true) {
+                        buildView(viewports[prop]);
+                        return;
+                    }
+                }
+            }
+
+            self.debug("_use_case.article", params);
+
+            // does not match any use case
+            self.debug("_use_case.article: ?");
+        }.bind(this);
+
+        // socialize.js needs this
+        window.gigyaConf = {
+            APIKey: this.settings.key,
+            bypassCookiePolicy: 'whenBlockedByDefault'
+        };
+
+        // For legacy reasons
+        window.user = null;
+
+        /* istanbul ignore next */
+        if (!window.unit_test_env) {
+            // Sucks but I can't think of a better way
+            this.fn.loadSocialize().then(function () {
+                // this._use_case.execute();
+                /* ----- replacing ._use_case.execute() ----- */
+                var self = this;
+                self.fn.loadPiano();
+                var _cb = function _cb() {
+                    /* ----- replacing _use_case.boilerplate() ----- */
+                    self.auth.mt._patchLegacyFunctions(); // this is important
+                    self.auth._initUserSession(); // this is important
+                    self.fn.evaluateShareMarkup();
+                    /* ---------- */
+
+                    // Article page share bars
+                    // /* ----- removing promise for gigya_share_override ----- */
+                    self._use_case.article();
+                };
+                if (this.ready) {
+                    if (document.readyState === 'loading') {
+                        window.addEventListener('DOMContentLoaded', function () {
+                            _cb();
+                        });
+                    } else {
+                        _cb();
+                    }
+                    return;
+                }
+                this.fn.subscribe('gigyaReady.adi', _cb, 'notNamedYet');
+                /* ---------- */
+            }.bind(this));
+        }
+    };
+
+    new ADIGigya();
+})();
+
+// make sure social object exists, and attach sticky object
+Advance.Social = Advance.Social || {};
+Advance.Social.sticky = function (start, end) {
+
+    // debug definition
+    var sbDebug = Boolean(_utils.location.hash.match(/sbdebug/));
+    if (sbDebug === true) {
+        var shareBarDebug = '<div id="shareBarDebug" class="debug__view">' + '<div>start: <span id="yPos"></span></div>' + '<div>startOffset: <span id="sOff"></span></div>' + '<div>end: <span id="yEnd"></span></div>' + '<div>endOffset: <span id="eOff"></span></div>' + '<div>body top: <span id="bTop"></span></div>' + '<div>el height: <span id="eHeight"></span></div>' + '<div>el state: <span id="eState"></span></div>' + '</div>';
+        document.body.insertAdjacentHTML('afterbegin', shareBarDebug);
+        var yPos = document.querySelector('#yPos');
+        var yEnd = document.querySelector('#yEnd');
+        var bTop = document.querySelector('#bTop');
+        var eHeight = document.querySelector('#eHeight');
+        var eState = document.querySelector('#eState');
+        var sOff = document.querySelector('#sOff');
+        var eOff = document.querySelector('#eOff');
+        var debugStyles = '.debug__view { position: fixed; top: 0; right: 0; background: rgba(0,0,0,.8); color: #fff; padding: 1em; z-index: 999999;}' + '.debug__sticky-el { background: rgba(56,121,217,.5); }';
+        var style = '<style id="sbDebug">' + debugStyles + '</style>';
+        document.head.insertAdjacentHTML('afterbegin', style);
+    }
+
+    // define elements
+    var startSticky = document.querySelector(start);
+    var endSticky = document.querySelector(end);
+    var stickyEl = document.querySelector('.social_sidebar.sticky');
+    var elState = 'default';
+    stickyEl.setAttribute('data-state', elState);
+    var galleryContainer = document.querySelector('#gallery_content');
+    var throttle = function throttle(fn, threshhold, scope) {
+        threshhold = threshhold || 250;
+        var last;
+        var deferTimer;
+        return function () {
+            var context = scope || this;
+            var now = Date.now();
+            var args = arguments;
+            if (last && now < last + threshhold) {
+                // hold on to it
+                clearTimeout(deferTimer);
+                deferTimer = setTimeout(function () {
+                    last = now;
+                    fn.apply(context, args);
+                }, threshhold);
+            } else {
+                last = now;
+                fn.apply(context, args);
+            }
+        };
+    };
+    var hasCount = true;
+    if (stickyEl.querySelector('.CommentCount') === null) {
+        hasCount = false;
+    }
+
+    // check if start and stop elements exist
+    if (startSticky && endSticky && stickyEl && !galleryContainer) {
+
+        // define dimensions
+        var dims = stickyEl.getBoundingClientRect();
+        dims.position = window.getComputedStyle(stickyEl).getPropertyValue('position');
+        dims.absLeft = window.getComputedStyle(stickyEl).getPropertyValue('left');
+        dims.altLeft = dims.left;
+        var isViable = Boolean(dims.bottom < endSticky.getBoundingClientRect().bottom);
+
+        if (sbDebug === true) {
+            stickyEl.classList.add('debug__sticky-el');
+            startSticky.style.cssText = "border-top: .25em #0f0 dashed";
+            endSticky.style.cssText = "border-bottom: .25em #f00 dashed";
+        }
+
+        // define actions
+        var stickyActions = {
+            default: function _default() {
+                elState = 'default';
+                stickyEl.setAttribute('data-state', elState);
+                stickyEl.style.cssText = 'position: ' + dims.position + '; top: auto; left: ' + dims.absLeft + ';';
+            },
+            top: function top() {
+                elState = 'top';
+                stickyEl.setAttribute('data-state', elState);
+                stickyEl.style.cssText = 'position: fixed; top: 0; left: ' + dims.altLeft + 'px;';
+            },
+            bottom: function bottom(coords) {
+                elState = 'bottom';
+                stickyEl.setAttribute('data-state', elState);
+                stickyEl.style.cssText = 'position: absolute; top: ' + coords.offset + 'px; left: ' + dims.absLeft + ';';
+            }
+        };
+
+        // define event functions
+        var scrollSticky = throttle(function () {
+
+            // define dimensions in case the user scrolls before the share bar has loaded
+            var dynCoords = {};
+            dynCoords.bodyTop = document.body.getBoundingClientRect().top;
+            dynCoords.whereStart = startSticky.getBoundingClientRect().top;
+            dynCoords.whereEnd = endSticky.getBoundingClientRect().bottom;
+            dynCoords.updatedHeight = stickyEl.getBoundingClientRect().height;
+            dynCoords.startVal = dynCoords.bodyTop - dynCoords.whereStart;
+            dynCoords.endVal = dynCoords.bodyTop - dynCoords.whereEnd;
+            dynCoords.offset = Math.abs(dynCoords.startVal - dynCoords.endVal) - dynCoords.updatedHeight;
+            if (hasCount === false) {
+                dynCoords.offset += 92;
+            }
+
+            if (sbDebug === true) {
+                yPos.textContent = dynCoords.whereStart;
+                yEnd.textContent = dynCoords.whereEnd;
+                bTop.textContent = String(document.body.getBoundingClientRect().top);
+                eHeight.textContent = dynCoords.updatedHeight;
+                eState.textContent = elState;
+                sOff.textContent = '' + Math.abs(document.body.getBoundingClientRect().top - dynCoords.whereStart);
+                eOff.textContent = String(Math.abs(document.body.getBoundingClientRect().top - dynCoords.whereEnd));
+            }
+
+            var viewResults = {
+                default: dynCoords.bodyTop > -Math.abs(dynCoords.startVal),
+                top: dynCoords.bodyTop <= -Math.abs(dynCoords.startVal) && dynCoords.bodyTop >= -Math.abs(dynCoords.endVal) + dynCoords.updatedHeight,
+                bottom: dynCoords.bodyTop <= -Math.abs(dynCoords.endVal) + dynCoords.updatedHeight
+            };
+
+            // check against viewports for state
+            for (var prop in viewResults) {
+                if (viewResults.hasOwnProperty(prop)) {
+                    if (viewResults[prop] === true) {
+                        stickyActions[prop](dynCoords);
+                        return;
+                    }
+                }
+            }
+        }, 50);
+
+        var resizeSticky = throttle(function () {
+            // update parent element position, and update share bar horizontal position accordingly
+            var parentLeft = startSticky.getBoundingClientRect().left;
+            dims.altLeft = parentLeft + parseInt(dims.absLeft);
+            if (stickyEl.style.position === 'fixed') {
+                stickyEl.style.left = dims.altLeft + 'px';
+            }
+        }, 50);
+
+        // add event listeners
+        if (isViable) {
+            window.addEventListener('scroll', scrollSticky);
+            window.addEventListener('resize', resizeSticky);
+        }
+
+        // return stickied element and current properties
+        this.sticky = {
+            selected: stickyEl,
+            selectedDims: dims,
+            start: start,
+            end: end,
+            isViable: isViable
+        };
+    }
+};
+
+exports.default = undefined;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "locationDetails", function() { return locationDetails; });
+/**
+*  get url component by creating a new anchor element and using that to parse out the url
+*  {String} url - url to prase
+*  {String} prop - get that part of the url (host/href, protocol, pathname, hash, origin)
+*  @returns the component asked for
+*/
+const getUrlComponent = ( url, prop ) => {
+    var a = document.createElement( 'a' );
+    a.setAttribute( 'href', url );
+    return a[prop];
+};
+
+/*
+ *  create a location object containing location settings from adiData or default to window.location as a compatability layer
+ *  *note the catch (e) syntax is needed to deal with eslint not being able to parse catch blocks without it
+ *  @returns (Object) - tier, teirSuffix (-uat), environment, tld (abc.com), affiliate
+ */
+
+const locationDetails = ( () => {
+    const splitHost = window.location.host.split( "." ).length > 1 ? window.location.host.split( "." ).reverse()[2] : window.location.host.split( "." )[0];
+    const loc = window.adiData && window.adiData.entryUrl ?
+        {
+            host: getUrlComponent( window.adiData.entryUrl, 'host' ),
+            href: getUrlComponent( window.adiData.entryUrl, 'href' ),
+            protocol: getUrlComponent( window.adiData.entryUrl, 'protocol' ),
+            pathname: getUrlComponent( window.adiData.entryUrl, 'pathname' ),
+            tier: window.adiData.environment === 'uat' ? 'dev' : 'prod',
+            tierSuffix: window.adiData.environment === 'uat' ? '-uat' : '',
+            origin: getUrlComponent( window.adiData.entryUrl, 'origin' ),
+            hash: getUrlComponent( window.adiData.entryUrl, 'hash' ),
+            environment: window.adiData.environment,
+        } : Object.assign( {
+            tier: splitHost.match( /-uat|-dev|-stage|^localhost:\d+?$/ ) ? 'dev' : 'prod',
+            tierSuffix: splitHost.match( /-dev|-stage|^localhost:\d+?$/ ) ? '-dev' : ( splitHost.match( /-uat/ ) ) ? '-uat' : '',
+            environment: ( () => {
+                const tier = splitHost.match( /uat|dev|localhost/ );
+                switch ( tier ? tier[0] : "" ) {
+                    case "uat":
+                        return 'uat';
+                    case "localhost":
+                    case "dev":
+                        return 'dev';
+                    default:
+                        return "prod";
+                }
+            } )(),
+
+        }, window.location );
+    // HSSN-4344: Default to advance.net on any non-ADI domain, simply so script can execute
+    try {
+        loc.tld = loc.host.match( /\.(.*)/ )[1];
+    } catch ( e ) {
+        loc.tld = "advance.net";
+    }
+    if ( !window.adiData && loc.host.match( /127.0.0.1|^localhost$/ ) ) {
+        loc.tier = 'dev';
+        loc.tierSuffix = '-dev';
+    }
+
+    loc.uri = `${loc.protocol}//${loc.host}${loc.pathname}`; // truncate the query params and hashes
+    //match everything inbetween . to . (www.blah.com) => blah
+
+    //match one of the advancelocal hosts or
+    // everything inbetween . to . (www.blah.com) => blah
+    if ( window.location.hostname.match( /localhost|advancelocal/ ) ) {
+        loc.affiliate = window.adiData.affiliate || 'advance.net';
+    } else {
+        loc.affiliate = loc.host.match( /\.([^\.]*)/ )[1];
+    }
+
+    return loc;
+} )();
+
+
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _call_cale = __webpack_require__(7);
+
+var _call_cale2 = _interopRequireDefault(_call_cale);
+
+var _analytics = __webpack_require__(2);
+
+var _piano_ad_block = __webpack_require__(14);
+
+var _piano_ad_block2 = _interopRequireDefault(_piano_ad_block);
+
+var _utils = __webpack_require__(0);
+
+var _private_detection = __webpack_require__(15);
+
+var _private_detection2 = _interopRequireDefault(_private_detection);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var state = void 0;
+
+var redirectToFB = function redirectToFB(subscription_payload) {
+    var uri = localStorage.getItem('redirect_uri');
+    var account_linking_token = localStorage.getItem('account_linking_token');
+    window.location.href = '' + uri + (0, _utils.queryParams)({ account_linking_token: account_linking_token, subscription_payload: subscription_payload });
+};
+var removeModal = function removeModal() {
+    var modal = document.querySelector('.tp-modal');
+    var articleModal = document.querySelectorAll('[data-page-type="article"], body.cma, .tp-modal').length >= 2;
+    if (articleModal) {
+        var backdrop = document.querySelector('.tp-backdrop.tp-active');
+        modal.parentElement.removeChild(modal);
+        backdrop.parentElement.removeChild(backdrop);
+        document.body.classList.remove('tp-modal-open');
+    }
+};
+var offerType = null;
+var refreshAfterLogin = false;
+
+var PianoLoader = {
+    load: function load(deps) {
+        // everything could fit within the `that` which is `this` of the top level gigya script scope, however it's only here for `debug` which can't be pulled out
+        var that = deps.that,
+            broadcast = deps.broadcast,
+            loadScript = deps.loadScript,
+            pianoKey = deps.pianoKey,
+            _searchToObject = deps._searchToObject,
+            pianoReady = deps.pianoReady;
+
+
+        var tinyPassUrl = {
+            dev: 'https://sandbox.tinypass.com/xbuilder/experience/load?aid=' + pianoKey,
+            prod: 'https://experience.tinypass.com/xbuilder/experience/load?aid=' + pianoKey
+        }[Advance.Gigya.tier.match("prod") ? "prod" : "dev"];
+
+        var _CallCale$init = _call_cale2.default.init(that),
+            callCaleAccess = _CallCale$init.callCaleAccess,
+            callCaleEntitlements = _CallCale$init.callCaleEntitlements,
+            callCaleTextSubscribe = _CallCale$init.callCaleTextSubscribe;
+
+        _piano_ad_block2.default.init();
+        _private_detection2.default.init().then(function (bool) {
+            if (bool) {
+                window.tp.push(["setCustomVariable", "incognito", "true"]);
+                (0, _analytics.logPrivateMode)();
+            }
+        });
+
+        var initPiano = function initPiano() {
+            window.tp.push(['setContentSection', window.adiData.blogId]);
+            window.tp.push(['setContentCreated', window.adiData.entryDateOriginal]);
+
+            if (window.adiData.entryAuthorUsername) {
+                window.tp.push(['setContentAuthor', window.adiData.entryAuthorUsername.toLowerCase()]);
+            }
+
+            if (window.adiData.pageType !== undefined) {
+                window.tp.push(['setCustomVariable', 'pagetype', window.adiData.pageType, "content"]);
+            }
+
+            if (window.adiData.entryTags) {
+                window.tp.push(['setTags', window.adiData.entryTags.toLowerCase().split(';')]);
+            }
+
+            window.tp.push(["setUseGigyaUserProvider", true]);
+
+            window.tp.push(["init", function () {
+                window.tp.gigya.init({
+                    apiKey: gigya.thisScript.APIKey,
+                    screenSet: 'Default-RegistrationLogin',
+                    startScreen: "gigya-register-screen"
+                });
+
+                window.window.tp.enableGACrossDomainLinking();
+                window.tp.experience.init();
+            }]);
+        };
+
+        // setup listeners
+
+        var alt = (0, _utils.getUrlParameter)('account_linking_token');
+
+        if ((0, _utils.getUrlParameter)('fb') && Boolean(window.location.href.match(/\:\/\/[^/]+?\/(login)/))) {
+            window.gigya.accounts.showScreenSet({ screenSet: 'ADI-Test-NewLogin-RegistrationLogin', containerID: 'gigya-login-container' });
+        }
+
+        if (alt) {
+            localStorage.setItem('account_linking_token', alt);
+            localStorage.setItem('redirect_uri', (0, _utils.getUrlParameter)('redirect_uri'));
+            window.location.href = window.location.origin + window.location.pathname + '?fb=true';
+            return;
+        }
+
+        if (_utils.paywallEnabled) {
+
+            window.tp = window.tp || [];
+            var onreadystatechange = function onreadystatechange() {
+
+                that.debug('fn.loadPiano complete');
+                broadcast('pianoReady.adi');
+            };
+            var loaded = false;
+            (0, _analytics.setupAnalyticsListeners)();
+            var loader = function loader(callback) {
+                loadScript(tinyPassUrl, function () {
+                    onreadystatechange();
+                    if (!loaded) {
+                        initPiano();
+                        callback && callback();
+                    };
+                    loaded = true;
+                });
+            };
+
+            var checkFBResults = function checkFBResults(results) {
+                return results.response && results.subscription_payload && redirectToFB(results.subscription_payload);
+            };
+
+            window.addEventListener('accountInfoRefreshed.adi', function () {
+                switch (state) {
+                    case 'checkout-complete':
+                        callCaleEntitlements(offerType).then(checkFBResults);
+                        break;
+                    case 'not-logged-in':
+                        callCaleAccess().then(checkFBResults);
+                        break;
+                }
+            });
+
+            window.addEventListener('getAccountInfo.adi', function () {
+                refreshAfterLogin && window.location.reload(true);
+
+                callCaleAccess().then(function (results) {
+                    checkFBResults(results);
+                    results.response && removeModal();
+                    loader();
+                }).catch(function (error) {
+                    loader();
+                });
+            });
+
+            var notLoggedIn = window.addEventListener('notLoggedIn.adi', function () {
+                window.removeEventListener('notLoggedIn.adi', notLoggedIn);
+                state = 'not-logged-in';
+                loader(that.auth.refreshUserToken); // maybe auth token expired.  try again.
+            });
+
+            window.tp.push(["addHandler", "checkoutComplete", function () {
+                state = 'checkout-complete';
+                that.auth.refreshUserToken();
+            }]);
+
+            window.tp.push(["addHandler", "customEvent", function (event) {
+                if (event.eventName === 'logout') {
+                    tp.gigya.logout();
+                    window.location.reload(true);
+                }
+            }]);
+
+            // sometimes we want to refresh after we login, so instead of calling logUserIn(), call the external event instead
+            window.tp.push(["addHandler", "customEvent", function (event) {
+                if (event.eventName === 'loginAndRefresh') {
+                    tp.gigya.login();
+                    refreshAfterLogin = true;
+                }
+            }]);
+
+            // should be looking an id on the landing page
+            window.tp.push(["addHandler", "checkoutClose", function (event) {
+                if (event.state === 'close' && Boolean(window.location.href.match(/\:\/\/[^/]+?\/(piano|digitalsubscription|learnmore|subscribe)/))) {
+                    //match anything not a landing page
+                    window.location.href = window.location.origin;
+                }
+            }]);
+
+            window.addEventListener('message', function (event) {
+                if (event.origin === 'https://projecttext.com') {
+                    var campaignId = document.querySelector('[data-campaign-id]').dataset.campaignId;
+                    that.auth.refreshUserTokenCB(function () {
+                        return callCaleTextSubscribe(event.data, campaignId);
+                    })();
+                }
+            });
+
+            //parse the event message, ignore all messages that don't include objects with piano as a key
+            window.addEventListener("message", function (event) {
+                if (event.origin.match(/tinypass.com$/)) {
+                    try {
+                        var data = JSON.parse(event.data);
+                        if (data.piano && data.piano.offerType) {
+                            offerType = data.piano.offerType;
+                        }
+                        data.piano && data.analytics && (0, _analytics.pianoCallbacks)(data); // data is not for analytics
+                    } catch (e) {
+                        // disregard if it's not json
+                    }
+                }
+            }, false);
+        }
+        return {
+            initPiano: initPiano
+        };
+    }
+};
+
+exports.default = PianoLoader;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _analytics = __webpack_require__(2);
+
+var _utils = __webpack_require__(0);
+
+/**
+ * construct a new CallCale object
+ * @param {Object} that - needs that.debug for loggin
+*/
+var CallCale = {
+    init: function init(that) {
+        /**
+        *  call cale for middleware auth
+        *  @param {Object} args - options object to send over
+        *  @param {Object} args.params - data to send over
+        *  @param {Object} args.access - post or get
+        */
+        var callCale = function callCale(args) {
+
+            return new Promise(function (resolve, reject) {
+                if (!_utils.paywallEnabled) {
+                    reject({ response: "paywall not enabled" });
+                    return;
+                }
+
+                if (!args.params.uid) {
+                    reject({ response: "no uid" });
+                    return;
+                }
+                // if GET request, attach args.params as query string otherwise, send in the body for POST requests
+                var queryParam = args.access.match(/get/i) ? (0, _utils.queryParams)(args.params) : "";
+                fetch('https://cale' + Advance.Gigya.tierSuffix + '.advance.net/' + args.endpoint + queryParam, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: args.access,
+                    body: args.access.match(/post/i) && JSON.stringify(args.params)
+                }).then(function (response) {
+                    if (!response.ok) {
+                        window.tp.push(["setCustomVariable", "middlewareerror", "true"]);
+                        that.debug("Cale was called unsuccessfully", e);
+
+                        throw new Error(response.statusText);
+                    }
+                    return response.text();
+                }).then(function () {
+                    var response = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+
+                    var json = JSON.parse(response).results;
+                    (0, _analytics.logCaleMessages)({
+                        response: json.response, message: json.messages
+                    });
+                    resolve(json);
+                }).catch(function (e) {
+                    reject(new Error(e));
+                });
+            });
+        };
+
+        var getParams = function getParams() {
+            //generic for both equests 
+            var params = {
+                uid: window.Advance.Gigya.auth.user.UID,
+                uidsignature: window.Advance.Gigya.auth.user.UIDSignature,
+                signaturetimestamp: window.Advance.Gigya.auth.user.signatureTimestamp
+            };
+
+            // if facebook, send these params
+            if ((0, _utils.getUrlParameter)('fb')) {
+                var account_linking_token = localStorage.getItem('account_linking_token');
+                account_linking_token && (params.account_linking_token = account_linking_token);
+            }
+            return params;
+        };
+
+        var callCaleAccess = function callCaleAccess() {
+            return callCale({
+                endpoint: _utils.location.affiliate + '/access', access: 'get', params: getParams()
+            });
+        };
+
+        // gets called on checkout
+        var callCaleEntitlements = function callCaleEntitlements(targetMarket) {
+            var market = targetMarket || _utils.location.affiliate;
+            return callCale({
+                endpoint: market + '/access', access: 'post', params: getParams()
+            });
+        };
+
+        var callCaleTextSubscribe = function callCaleTextSubscribe(phone, campaignId) {
+            return callCale({
+                endpoint: _utils.location.affiliate + '/text_subscribe', access: 'post', params: Object.assign(getParams(), { phone: phone, campaign_id: campaignId })
+            });
+        };
+
+        return {
+            callCaleAccess: callCaleAccess,
+            callCaleEntitlements: callCaleEntitlements,
+            callCaleTextSubscribe: callCaleTextSubscribe
+        };
+    }
+};
+
+exports.default = CallCale;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if (typeof exports !== "undefined") {
+    factory(exports);
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(mod.exports);
+    global.index = mod.exports;
+  }
+})(this, function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+        arr2[i] = arr[i];
+      }
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var Track = function () {
+    function Track() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      _classCallCheck(this, Track);
+
+      // storage for events fired before GTM has loaded.
+      this._queue = [];
+      // once set to true by `this.checkLoaded`
+      this.adiTrackLoaded = false;
+      // how long we should wait for GTM to load
+      this.loadTimeout = options.loadTimeout || 3000;
+      // track each pass at `this.checkLoaded`
+      this.loadTimeoutElapsed = options.loadTimeoutElapsed || 0;
+      // how often `this.checkLoaded` should run
+      this.loadTimeoutElapsedIncrement = options.loadTimeoutElapsedIncrement || 10;
+      // start checking!
+      this.checkLoaded();
+    }
+
+    /**
+     * wait for adiTrack to load via GTM then process the queue.
+     * @todo add a timeout: https://jira.advance.net/browse/ADITRACK-3
+     * @return {void}
+     */
+
+
+    _createClass(Track, [{
+      key: 'checkLoaded',
+      value: function checkLoaded() {
+        var _this = this;
+
+        var timeout = setTimeout(function () {
+          // fail first if the GTM load timeout has been reached
+          if (_this.loadTimeoutElapsed === _this.loadTimeout) {
+            _this.page = noop;
+            _this.event = noop;
+            clearInterval(timeout);
+            return console.log('ADITrack could not be loaded.');
+          }
+
+          // grab the GTM injected script tag
+          var tag = document.getElementById('adiTrackTag');
+          // check the data-loaded attribute of the tag to see if it's loaded or not
+          var tagAttrIsSet = tag && typeof tag !== 'undefined' && tag.dataset.loaded === 'true';
+          // if tag does not exist or data-attr is not set, re-run the function
+          if (tagAttrIsSet) {
+            _this.adiTrackLoaded = true;
+            return _this.processQueue();
+          }
+
+          // otherwise increment `this.loadTimeoutElapsed` by 10ms and re-run
+          _this.loadTimeoutElapsed = _this.loadTimeoutElapsed + _this.loadTimeoutElapsedIncrement;
+          return _this.checkLoaded();
+        }, this.loadTimeoutElapsedIncrement);
+      }
+    }, {
+      key: 'event',
+      value: function event(props, config) {
+        return !this.adiTrackLoaded ? this._queue.push({ type: 'event', args: [props, config] }) : window._adiTrack.event(props, config);
+      }
+    }, {
+      key: 'page',
+      value: function page() {
+        var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.location.href;
+
+        return !this.adiTrackLoaded ? this._queue.push({ type: 'page', args: [url] }) : window._adiTrack.page(url);
+      }
+    }, {
+      key: 'processQueue',
+      value: function processQueue() {
+        if (isDefined(this._queue) && Array.isArray(this._queue)) {
+          this._queue.forEach(function (job, index) {
+            if (window._adiTrack[job.type] && isFunction(window._adiTrack[job.type])) {
+              var _window$_adiTrack;
+
+              (_window$_adiTrack = window._adiTrack)[job.type].apply(_window$_adiTrack, _toConsumableArray(job.args));
+            }
+          });
+        }
+      }
+    }]);
+
+    return Track;
+  }();
+
+  var noop = function noop() {};
+
+  /**
+   * @param {function} fn
+   * @return {boolean}
+   */
+  var isFunction = function isFunction(fn) {
+    return fn && typeof fn === 'function';
+  };
+
+  /**
+   * [isDefined description]
+   * @param {mixed} definition
+   * @return {boolean}
+   */
+  var isDefined = function isDefined(definition) {
+    return definition && typeof definition !== 'undefined';
+  };
+
+  /**
+   * This is the default export of the module.
+   * If adiTrack is already defined we use that, otherwise,
+   * we namespace the module to `window.adiTrack` and once
+   * GTM has loaded, it is namespaced to `window._adiTrack`
+   * and all method calls are proxied to that namespace.
+   * @type {object}
+   */
+  var _default = null;
+
+  // if adiTrack already exists we'll just use that...
+  // otherwise, instantiate the track class and use that.
+  if (isDefined(window.adiTrack)) {
+    _default = window.adiTrack;
+  } else {
+    _default = window.adiTrack = new Track();
+  }
+
+  // default to the above
+  exports.default = _default;
+});
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+/*\
+|*|
+|*|	:: cookies.js ::
+|*|
+|*|	A complete cookies reader/writer framework with full unicode support.
+|*|
+|*|	Revision #3 - July 13th, 2017
+|*|
+|*|	https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
+|*|	https://developer.mozilla.org/User:fusionchess
+|*|	https://github.com/madmurphy/cookies.js
+|*|
+|*|	This framework is released under the GNU Public License, version 3 or later.
+|*|	http://www.gnu.org/licenses/gpl-3.0-standalone.html
+|*|
+|*|	Syntaxes:
+|*|
+|*|	* docCookies.setItem(name, value[, end[, path[, domain[, secure]]]])
+|*|	* docCookies.getItem(name)
+|*|	* docCookies.removeItem(name[, path[, domain]])
+|*|	* docCookies.hasItem(name)
+|*|	* docCookies.keys()
+|*|
+\*/
+
+var docCookies = {
+	getItem: function (sKey) {
+		if (!sKey) { return null; }
+		return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+	},
+	setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+		var sExpires = "";
+		if (vEnd) {
+			switch (vEnd.constructor) {
+				case Number:
+					sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+					/*
+					Note: Despite officially defined in RFC 6265, the use of `max-age` is not compatible with any
+					version of Internet Explorer, Edge and some mobile browsers. Therefore passing a number to
+					the end parameter might not work as expected. A possible solution might be to convert the the
+					relative time to an absolute time. For instance, replacing the previous line with:
+					*/
+					/*
+					sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; expires=" + (new Date(vEnd * 1e3 + Date.now())).toUTCString();
+					*/
+					break;
+				case String:
+					sExpires = "; expires=" + vEnd;
+					break;
+				case Date:
+					sExpires = "; expires=" + vEnd.toUTCString();
+					break;
+			}
+		}
+		document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+		return true;
+	},
+	removeItem: function (sKey, sPath, sDomain) {
+		if (!this.hasItem(sKey)) { return false; }
+		document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+		return true;
+	},
+	hasItem: function (sKey) {
+		if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+		return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+	},
+	keys: function () {
+		var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+		for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+		return aKeys;
+	}
+};
+
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+	module.exports = docCookies;
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * [js-sha256]{@link https://github.com/emn178/js-sha256}
+ *
+ * @version 0.9.0
+ * @author Chen, Yi-Cyuan [emn178@gmail.com]
+ * @copyright Chen, Yi-Cyuan 2014-2017
+ * @license MIT
+ */
+/*jslint bitwise: true */
+(function () {
+  'use strict';
+
+  var ERROR = 'input is invalid type';
+  var WINDOW = typeof window === 'object';
+  var root = WINDOW ? window : {};
+  if (root.JS_SHA256_NO_WINDOW) {
+    WINDOW = false;
+  }
+  var WEB_WORKER = !WINDOW && typeof self === 'object';
+  var NODE_JS = !root.JS_SHA256_NO_NODE_JS && typeof process === 'object' && process.versions && process.versions.node;
+  if (NODE_JS) {
+    root = global;
+  } else if (WEB_WORKER) {
+    root = self;
+  }
+  var COMMON_JS = !root.JS_SHA256_NO_COMMON_JS && typeof module === 'object' && module.exports;
+  var AMD = "function" === 'function' && __webpack_require__(13);
+  var ARRAY_BUFFER = !root.JS_SHA256_NO_ARRAY_BUFFER && typeof ArrayBuffer !== 'undefined';
+  var HEX_CHARS = '0123456789abcdef'.split('');
+  var EXTRA = [-2147483648, 8388608, 32768, 128];
+  var SHIFT = [24, 16, 8, 0];
+  var K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+  ];
+  var OUTPUT_TYPES = ['hex', 'array', 'digest', 'arrayBuffer'];
+
+  var blocks = [];
+
+  if (root.JS_SHA256_NO_NODE_JS || !Array.isArray) {
+    Array.isArray = function (obj) {
+      return Object.prototype.toString.call(obj) === '[object Array]';
+    };
+  }
+
+  if (ARRAY_BUFFER && (root.JS_SHA256_NO_ARRAY_BUFFER_IS_VIEW || !ArrayBuffer.isView)) {
+    ArrayBuffer.isView = function (obj) {
+      return typeof obj === 'object' && obj.buffer && obj.buffer.constructor === ArrayBuffer;
+    };
+  }
+
+  var createOutputMethod = function (outputType, is224) {
+    return function (message) {
+      return new Sha256(is224, true).update(message)[outputType]();
+    };
+  };
+
+  var createMethod = function (is224) {
+    var method = createOutputMethod('hex', is224);
+    if (NODE_JS) {
+      method = nodeWrap(method, is224);
+    }
+    method.create = function () {
+      return new Sha256(is224);
+    };
+    method.update = function (message) {
+      return method.create().update(message);
+    };
+    for (var i = 0; i < OUTPUT_TYPES.length; ++i) {
+      var type = OUTPUT_TYPES[i];
+      method[type] = createOutputMethod(type, is224);
+    }
+    return method;
+  };
+
+  var nodeWrap = function (method, is224) {
+    var crypto = eval("require('crypto')");
+    var Buffer = eval("require('buffer').Buffer");
+    var algorithm = is224 ? 'sha224' : 'sha256';
+    var nodeMethod = function (message) {
+      if (typeof message === 'string') {
+        return crypto.createHash(algorithm).update(message, 'utf8').digest('hex');
+      } else {
+        if (message === null || message === undefined) {
+          throw new Error(ERROR);
+        } else if (message.constructor === ArrayBuffer) {
+          message = new Uint8Array(message);
+        }
+      }
+      if (Array.isArray(message) || ArrayBuffer.isView(message) ||
+        message.constructor === Buffer) {
+        return crypto.createHash(algorithm).update(new Buffer(message)).digest('hex');
+      } else {
+        return method(message);
+      }
+    };
+    return nodeMethod;
+  };
+
+  var createHmacOutputMethod = function (outputType, is224) {
+    return function (key, message) {
+      return new HmacSha256(key, is224, true).update(message)[outputType]();
+    };
+  };
+
+  var createHmacMethod = function (is224) {
+    var method = createHmacOutputMethod('hex', is224);
+    method.create = function (key) {
+      return new HmacSha256(key, is224);
+    };
+    method.update = function (key, message) {
+      return method.create(key).update(message);
+    };
+    for (var i = 0; i < OUTPUT_TYPES.length; ++i) {
+      var type = OUTPUT_TYPES[i];
+      method[type] = createHmacOutputMethod(type, is224);
+    }
+    return method;
+  };
+
+  function Sha256(is224, sharedMemory) {
+    if (sharedMemory) {
+      blocks[0] = blocks[16] = blocks[1] = blocks[2] = blocks[3] =
+        blocks[4] = blocks[5] = blocks[6] = blocks[7] =
+        blocks[8] = blocks[9] = blocks[10] = blocks[11] =
+        blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+      this.blocks = blocks;
+    } else {
+      this.blocks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
+
+    if (is224) {
+      this.h0 = 0xc1059ed8;
+      this.h1 = 0x367cd507;
+      this.h2 = 0x3070dd17;
+      this.h3 = 0xf70e5939;
+      this.h4 = 0xffc00b31;
+      this.h5 = 0x68581511;
+      this.h6 = 0x64f98fa7;
+      this.h7 = 0xbefa4fa4;
+    } else { // 256
+      this.h0 = 0x6a09e667;
+      this.h1 = 0xbb67ae85;
+      this.h2 = 0x3c6ef372;
+      this.h3 = 0xa54ff53a;
+      this.h4 = 0x510e527f;
+      this.h5 = 0x9b05688c;
+      this.h6 = 0x1f83d9ab;
+      this.h7 = 0x5be0cd19;
+    }
+
+    this.block = this.start = this.bytes = this.hBytes = 0;
+    this.finalized = this.hashed = false;
+    this.first = true;
+    this.is224 = is224;
+  }
+
+  Sha256.prototype.update = function (message) {
+    if (this.finalized) {
+      return;
+    }
+    var notString, type = typeof message;
+    if (type !== 'string') {
+      if (type === 'object') {
+        if (message === null) {
+          throw new Error(ERROR);
+        } else if (ARRAY_BUFFER && message.constructor === ArrayBuffer) {
+          message = new Uint8Array(message);
+        } else if (!Array.isArray(message)) {
+          if (!ARRAY_BUFFER || !ArrayBuffer.isView(message)) {
+            throw new Error(ERROR);
+          }
+        }
+      } else {
+        throw new Error(ERROR);
+      }
+      notString = true;
+    }
+    var code, index = 0, i, length = message.length, blocks = this.blocks;
+
+    while (index < length) {
+      if (this.hashed) {
+        this.hashed = false;
+        blocks[0] = this.block;
+        blocks[16] = blocks[1] = blocks[2] = blocks[3] =
+          blocks[4] = blocks[5] = blocks[6] = blocks[7] =
+          blocks[8] = blocks[9] = blocks[10] = blocks[11] =
+          blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+      }
+
+      if (notString) {
+        for (i = this.start; index < length && i < 64; ++index) {
+          blocks[i >> 2] |= message[index] << SHIFT[i++ & 3];
+        }
+      } else {
+        for (i = this.start; index < length && i < 64; ++index) {
+          code = message.charCodeAt(index);
+          if (code < 0x80) {
+            blocks[i >> 2] |= code << SHIFT[i++ & 3];
+          } else if (code < 0x800) {
+            blocks[i >> 2] |= (0xc0 | (code >> 6)) << SHIFT[i++ & 3];
+            blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+          } else if (code < 0xd800 || code >= 0xe000) {
+            blocks[i >> 2] |= (0xe0 | (code >> 12)) << SHIFT[i++ & 3];
+            blocks[i >> 2] |= (0x80 | ((code >> 6) & 0x3f)) << SHIFT[i++ & 3];
+            blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+          } else {
+            code = 0x10000 + (((code & 0x3ff) << 10) | (message.charCodeAt(++index) & 0x3ff));
+            blocks[i >> 2] |= (0xf0 | (code >> 18)) << SHIFT[i++ & 3];
+            blocks[i >> 2] |= (0x80 | ((code >> 12) & 0x3f)) << SHIFT[i++ & 3];
+            blocks[i >> 2] |= (0x80 | ((code >> 6) & 0x3f)) << SHIFT[i++ & 3];
+            blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+          }
+        }
+      }
+
+      this.lastByteIndex = i;
+      this.bytes += i - this.start;
+      if (i >= 64) {
+        this.block = blocks[16];
+        this.start = i - 64;
+        this.hash();
+        this.hashed = true;
+      } else {
+        this.start = i;
+      }
+    }
+    if (this.bytes > 4294967295) {
+      this.hBytes += this.bytes / 4294967296 << 0;
+      this.bytes = this.bytes % 4294967296;
+    }
+    return this;
+  };
+
+  Sha256.prototype.finalize = function () {
+    if (this.finalized) {
+      return;
+    }
+    this.finalized = true;
+    var blocks = this.blocks, i = this.lastByteIndex;
+    blocks[16] = this.block;
+    blocks[i >> 2] |= EXTRA[i & 3];
+    this.block = blocks[16];
+    if (i >= 56) {
+      if (!this.hashed) {
+        this.hash();
+      }
+      blocks[0] = this.block;
+      blocks[16] = blocks[1] = blocks[2] = blocks[3] =
+        blocks[4] = blocks[5] = blocks[6] = blocks[7] =
+        blocks[8] = blocks[9] = blocks[10] = blocks[11] =
+        blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+    }
+    blocks[14] = this.hBytes << 3 | this.bytes >>> 29;
+    blocks[15] = this.bytes << 3;
+    this.hash();
+  };
+
+  Sha256.prototype.hash = function () {
+    var a = this.h0, b = this.h1, c = this.h2, d = this.h3, e = this.h4, f = this.h5, g = this.h6,
+      h = this.h7, blocks = this.blocks, j, s0, s1, maj, t1, t2, ch, ab, da, cd, bc;
+
+    for (j = 16; j < 64; ++j) {
+      // rightrotate
+      t1 = blocks[j - 15];
+      s0 = ((t1 >>> 7) | (t1 << 25)) ^ ((t1 >>> 18) | (t1 << 14)) ^ (t1 >>> 3);
+      t1 = blocks[j - 2];
+      s1 = ((t1 >>> 17) | (t1 << 15)) ^ ((t1 >>> 19) | (t1 << 13)) ^ (t1 >>> 10);
+      blocks[j] = blocks[j - 16] + s0 + blocks[j - 7] + s1 << 0;
+    }
+
+    bc = b & c;
+    for (j = 0; j < 64; j += 4) {
+      if (this.first) {
+        if (this.is224) {
+          ab = 300032;
+          t1 = blocks[0] - 1413257819;
+          h = t1 - 150054599 << 0;
+          d = t1 + 24177077 << 0;
+        } else {
+          ab = 704751109;
+          t1 = blocks[0] - 210244248;
+          h = t1 - 1521486534 << 0;
+          d = t1 + 143694565 << 0;
+        }
+        this.first = false;
+      } else {
+        s0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+        s1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+        ab = a & b;
+        maj = ab ^ (a & c) ^ bc;
+        ch = (e & f) ^ (~e & g);
+        t1 = h + s1 + ch + K[j] + blocks[j];
+        t2 = s0 + maj;
+        h = d + t1 << 0;
+        d = t1 + t2 << 0;
+      }
+      s0 = ((d >>> 2) | (d << 30)) ^ ((d >>> 13) | (d << 19)) ^ ((d >>> 22) | (d << 10));
+      s1 = ((h >>> 6) | (h << 26)) ^ ((h >>> 11) | (h << 21)) ^ ((h >>> 25) | (h << 7));
+      da = d & a;
+      maj = da ^ (d & b) ^ ab;
+      ch = (h & e) ^ (~h & f);
+      t1 = g + s1 + ch + K[j + 1] + blocks[j + 1];
+      t2 = s0 + maj;
+      g = c + t1 << 0;
+      c = t1 + t2 << 0;
+      s0 = ((c >>> 2) | (c << 30)) ^ ((c >>> 13) | (c << 19)) ^ ((c >>> 22) | (c << 10));
+      s1 = ((g >>> 6) | (g << 26)) ^ ((g >>> 11) | (g << 21)) ^ ((g >>> 25) | (g << 7));
+      cd = c & d;
+      maj = cd ^ (c & a) ^ da;
+      ch = (g & h) ^ (~g & e);
+      t1 = f + s1 + ch + K[j + 2] + blocks[j + 2];
+      t2 = s0 + maj;
+      f = b + t1 << 0;
+      b = t1 + t2 << 0;
+      s0 = ((b >>> 2) | (b << 30)) ^ ((b >>> 13) | (b << 19)) ^ ((b >>> 22) | (b << 10));
+      s1 = ((f >>> 6) | (f << 26)) ^ ((f >>> 11) | (f << 21)) ^ ((f >>> 25) | (f << 7));
+      bc = b & c;
+      maj = bc ^ (b & d) ^ cd;
+      ch = (f & g) ^ (~f & h);
+      t1 = e + s1 + ch + K[j + 3] + blocks[j + 3];
+      t2 = s0 + maj;
+      e = a + t1 << 0;
+      a = t1 + t2 << 0;
+    }
+
+    this.h0 = this.h0 + a << 0;
+    this.h1 = this.h1 + b << 0;
+    this.h2 = this.h2 + c << 0;
+    this.h3 = this.h3 + d << 0;
+    this.h4 = this.h4 + e << 0;
+    this.h5 = this.h5 + f << 0;
+    this.h6 = this.h6 + g << 0;
+    this.h7 = this.h7 + h << 0;
+  };
+
+  Sha256.prototype.hex = function () {
+    this.finalize();
+
+    var h0 = this.h0, h1 = this.h1, h2 = this.h2, h3 = this.h3, h4 = this.h4, h5 = this.h5,
+      h6 = this.h6, h7 = this.h7;
+
+    var hex = HEX_CHARS[(h0 >> 28) & 0x0F] + HEX_CHARS[(h0 >> 24) & 0x0F] +
+      HEX_CHARS[(h0 >> 20) & 0x0F] + HEX_CHARS[(h0 >> 16) & 0x0F] +
+      HEX_CHARS[(h0 >> 12) & 0x0F] + HEX_CHARS[(h0 >> 8) & 0x0F] +
+      HEX_CHARS[(h0 >> 4) & 0x0F] + HEX_CHARS[h0 & 0x0F] +
+      HEX_CHARS[(h1 >> 28) & 0x0F] + HEX_CHARS[(h1 >> 24) & 0x0F] +
+      HEX_CHARS[(h1 >> 20) & 0x0F] + HEX_CHARS[(h1 >> 16) & 0x0F] +
+      HEX_CHARS[(h1 >> 12) & 0x0F] + HEX_CHARS[(h1 >> 8) & 0x0F] +
+      HEX_CHARS[(h1 >> 4) & 0x0F] + HEX_CHARS[h1 & 0x0F] +
+      HEX_CHARS[(h2 >> 28) & 0x0F] + HEX_CHARS[(h2 >> 24) & 0x0F] +
+      HEX_CHARS[(h2 >> 20) & 0x0F] + HEX_CHARS[(h2 >> 16) & 0x0F] +
+      HEX_CHARS[(h2 >> 12) & 0x0F] + HEX_CHARS[(h2 >> 8) & 0x0F] +
+      HEX_CHARS[(h2 >> 4) & 0x0F] + HEX_CHARS[h2 & 0x0F] +
+      HEX_CHARS[(h3 >> 28) & 0x0F] + HEX_CHARS[(h3 >> 24) & 0x0F] +
+      HEX_CHARS[(h3 >> 20) & 0x0F] + HEX_CHARS[(h3 >> 16) & 0x0F] +
+      HEX_CHARS[(h3 >> 12) & 0x0F] + HEX_CHARS[(h3 >> 8) & 0x0F] +
+      HEX_CHARS[(h3 >> 4) & 0x0F] + HEX_CHARS[h3 & 0x0F] +
+      HEX_CHARS[(h4 >> 28) & 0x0F] + HEX_CHARS[(h4 >> 24) & 0x0F] +
+      HEX_CHARS[(h4 >> 20) & 0x0F] + HEX_CHARS[(h4 >> 16) & 0x0F] +
+      HEX_CHARS[(h4 >> 12) & 0x0F] + HEX_CHARS[(h4 >> 8) & 0x0F] +
+      HEX_CHARS[(h4 >> 4) & 0x0F] + HEX_CHARS[h4 & 0x0F] +
+      HEX_CHARS[(h5 >> 28) & 0x0F] + HEX_CHARS[(h5 >> 24) & 0x0F] +
+      HEX_CHARS[(h5 >> 20) & 0x0F] + HEX_CHARS[(h5 >> 16) & 0x0F] +
+      HEX_CHARS[(h5 >> 12) & 0x0F] + HEX_CHARS[(h5 >> 8) & 0x0F] +
+      HEX_CHARS[(h5 >> 4) & 0x0F] + HEX_CHARS[h5 & 0x0F] +
+      HEX_CHARS[(h6 >> 28) & 0x0F] + HEX_CHARS[(h6 >> 24) & 0x0F] +
+      HEX_CHARS[(h6 >> 20) & 0x0F] + HEX_CHARS[(h6 >> 16) & 0x0F] +
+      HEX_CHARS[(h6 >> 12) & 0x0F] + HEX_CHARS[(h6 >> 8) & 0x0F] +
+      HEX_CHARS[(h6 >> 4) & 0x0F] + HEX_CHARS[h6 & 0x0F];
+    if (!this.is224) {
+      hex += HEX_CHARS[(h7 >> 28) & 0x0F] + HEX_CHARS[(h7 >> 24) & 0x0F] +
+        HEX_CHARS[(h7 >> 20) & 0x0F] + HEX_CHARS[(h7 >> 16) & 0x0F] +
+        HEX_CHARS[(h7 >> 12) & 0x0F] + HEX_CHARS[(h7 >> 8) & 0x0F] +
+        HEX_CHARS[(h7 >> 4) & 0x0F] + HEX_CHARS[h7 & 0x0F];
+    }
+    return hex;
+  };
+
+  Sha256.prototype.toString = Sha256.prototype.hex;
+
+  Sha256.prototype.digest = function () {
+    this.finalize();
+
+    var h0 = this.h0, h1 = this.h1, h2 = this.h2, h3 = this.h3, h4 = this.h4, h5 = this.h5,
+      h6 = this.h6, h7 = this.h7;
+
+    var arr = [
+      (h0 >> 24) & 0xFF, (h0 >> 16) & 0xFF, (h0 >> 8) & 0xFF, h0 & 0xFF,
+      (h1 >> 24) & 0xFF, (h1 >> 16) & 0xFF, (h1 >> 8) & 0xFF, h1 & 0xFF,
+      (h2 >> 24) & 0xFF, (h2 >> 16) & 0xFF, (h2 >> 8) & 0xFF, h2 & 0xFF,
+      (h3 >> 24) & 0xFF, (h3 >> 16) & 0xFF, (h3 >> 8) & 0xFF, h3 & 0xFF,
+      (h4 >> 24) & 0xFF, (h4 >> 16) & 0xFF, (h4 >> 8) & 0xFF, h4 & 0xFF,
+      (h5 >> 24) & 0xFF, (h5 >> 16) & 0xFF, (h5 >> 8) & 0xFF, h5 & 0xFF,
+      (h6 >> 24) & 0xFF, (h6 >> 16) & 0xFF, (h6 >> 8) & 0xFF, h6 & 0xFF
+    ];
+    if (!this.is224) {
+      arr.push((h7 >> 24) & 0xFF, (h7 >> 16) & 0xFF, (h7 >> 8) & 0xFF, h7 & 0xFF);
+    }
+    return arr;
+  };
+
+  Sha256.prototype.array = Sha256.prototype.digest;
+
+  Sha256.prototype.arrayBuffer = function () {
+    this.finalize();
+
+    var buffer = new ArrayBuffer(this.is224 ? 28 : 32);
+    var dataView = new DataView(buffer);
+    dataView.setUint32(0, this.h0);
+    dataView.setUint32(4, this.h1);
+    dataView.setUint32(8, this.h2);
+    dataView.setUint32(12, this.h3);
+    dataView.setUint32(16, this.h4);
+    dataView.setUint32(20, this.h5);
+    dataView.setUint32(24, this.h6);
+    if (!this.is224) {
+      dataView.setUint32(28, this.h7);
+    }
+    return buffer;
+  };
+
+  function HmacSha256(key, is224, sharedMemory) {
+    var i, type = typeof key;
+    if (type === 'string') {
+      var bytes = [], length = key.length, index = 0, code;
+      for (i = 0; i < length; ++i) {
+        code = key.charCodeAt(i);
+        if (code < 0x80) {
+          bytes[index++] = code;
+        } else if (code < 0x800) {
+          bytes[index++] = (0xc0 | (code >> 6));
+          bytes[index++] = (0x80 | (code & 0x3f));
+        } else if (code < 0xd800 || code >= 0xe000) {
+          bytes[index++] = (0xe0 | (code >> 12));
+          bytes[index++] = (0x80 | ((code >> 6) & 0x3f));
+          bytes[index++] = (0x80 | (code & 0x3f));
+        } else {
+          code = 0x10000 + (((code & 0x3ff) << 10) | (key.charCodeAt(++i) & 0x3ff));
+          bytes[index++] = (0xf0 | (code >> 18));
+          bytes[index++] = (0x80 | ((code >> 12) & 0x3f));
+          bytes[index++] = (0x80 | ((code >> 6) & 0x3f));
+          bytes[index++] = (0x80 | (code & 0x3f));
+        }
+      }
+      key = bytes;
+    } else {
+      if (type === 'object') {
+        if (key === null) {
+          throw new Error(ERROR);
+        } else if (ARRAY_BUFFER && key.constructor === ArrayBuffer) {
+          key = new Uint8Array(key);
+        } else if (!Array.isArray(key)) {
+          if (!ARRAY_BUFFER || !ArrayBuffer.isView(key)) {
+            throw new Error(ERROR);
+          }
+        }
+      } else {
+        throw new Error(ERROR);
+      }
+    }
+
+    if (key.length > 64) {
+      key = (new Sha256(is224, true)).update(key).array();
+    }
+
+    var oKeyPad = [], iKeyPad = [];
+    for (i = 0; i < 64; ++i) {
+      var b = key[i] || 0;
+      oKeyPad[i] = 0x5c ^ b;
+      iKeyPad[i] = 0x36 ^ b;
+    }
+
+    Sha256.call(this, is224, sharedMemory);
+
+    this.update(iKeyPad);
+    this.oKeyPad = oKeyPad;
+    this.inner = true;
+    this.sharedMemory = sharedMemory;
+  }
+  HmacSha256.prototype = new Sha256();
+
+  HmacSha256.prototype.finalize = function () {
+    Sha256.prototype.finalize.call(this);
+    if (this.inner) {
+      this.inner = false;
+      var innerHash = this.array();
+      Sha256.call(this, this.is224, this.sharedMemory);
+      this.update(this.oKeyPad);
+      this.update(innerHash);
+      Sha256.prototype.finalize.call(this);
+    }
+  };
+
+  var exports = createMethod();
+  exports.sha256 = exports;
+  exports.sha224 = createMethod(true);
+  exports.sha256.hmac = createHmacMethod();
+  exports.sha224.hmac = createHmacMethod(true);
+
+  if (COMMON_JS) {
+    module.exports = exports;
+  } else {
+    root.sha256 = exports.sha256;
+    root.sha224 = exports.sha224;
+    if (AMD) {
+      !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+        return exports;
+      }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    }
+  }
+})();
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(12)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+				value: true
+});
+
+var _utils = __webpack_require__(0);
+
+var PianoAdBlock = {
+				init: function init() {
+								var load = function load() {
+												var setNptTechAdblockerCookieFunction = function setNptTechAdblockerCookieFunction(adblocker) {
+																var d = new Date();
+																d.setTime(d.getTime() + 60 * 60 * 24 * 2 * 1000);
+																document.cookie = "__adblocker=" + (adblocker ? "true" : "false") + "; expires=" + d.toUTCString() + "; path=/";
+												};
+
+												document.cookie = "__adblocker=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+												var script = document.createElement("script");
+												script.setAttribute("async", true);
+												script.setAttribute("src", "//www.npttech.com/advertising.js");
+												script.onerror = function () {
+																return setNptTechAdblockerCookieFunction(true);
+												};
+												document.getElementsByTagName("head")[0].appendChild(script);
+								};
+								_utils.paywallEnabled && window.addEventListener('pianoReady.adi', load);
+				}
+};
+
+exports.default = PianoAdBlock;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Detect if the browser is running in Private Browsing mode
+ * gist: https://gist.github.com/jherax/a81c8c132d09cc354a0e2cb911841ff1
+ */
+
+var isPrivateMode = {
+    init: function init() {
+        return new Promise(function (resolve) {
+            var on = function on() {
+                return resolve(true);
+            }; // is in private mode
+            var off = function off() {
+                return resolve(false);
+            }; // not private mode
+            var testLocalStorage = function testLocalStorage() {
+                try {
+                    if (localStorage.length) {
+                        off();
+                    } else {
+                        localStorage.x = 1;
+                        localStorage.removeItem('x');
+                        off();
+                    }
+                } catch (e) {
+                    // Safari only enables cookie in private mode
+                    // if cookie is disabled then all client side storage is disabled
+                    // if all client side storage is disabled, then there is no point
+                    // in using private mode
+                    navigator.cookieEnabled ? on() : off();
+                }
+            };
+            // Chrome & Opera
+            if (window.webkitRequestFileSystem) {
+                return void window.webkitRequestFileSystem(0, 0, off, on);
+            }
+            // Firefox
+            if ('MozAppearance' in document.documentElement.style) {
+                var db = indexedDB.open('test');
+                db.onerror = on;
+                db.onsuccess = off;
+                return void 0;
+            }
+
+            // IE10+ & Edge
+            if (!window.indexedDB && (window.PointerEvent || window.MSPointerEvent)) {
+                return on();
+            }
+
+            var isSafari = navigator.userAgent.match(/Version\/([0-9\._]+).*Safari/);
+            if (isSafari) {
+                var version = parseInt(isSafari[1], 10);
+                if (version >= 11) {
+                    try {
+                        window.openDatabase(null, null, null, null);
+                        return off();
+                    } catch (e) {
+                        e;
+                        return on();
+                    };
+                } else if (version < 11) {
+                    return testLocalStorage();
+                }
+            }
+
+            // others
+            return off();
+        });
+    }
+};
+
+exports.default = isPrivateMode;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var promises = {};
+var shortedURLS = {};
+
+var _queue = [];
+
+var tools = {
+    browser: function browser() {
+        var ua = navigator.userAgent,
+            tem = void 0,
+            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        if (/trident/i.test(M[1])) {
+            tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+            return { name: 'IE', version: tem[1] || '' };
+        }
+        if (M[1] === 'Chrome') {
+            tem = ua.match(/\bOPR|Edge\/(\d+)/);
+            if (tem != null) {
+                return { name: 'Opera', version: tem[1] };
+            }
+        }
+        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+        if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+            M.splice(1, 1, tem[1]);
+        }
+        return {
+            name: M[0],
+            version: M[1]
+        };
+    },
+    on: function on(queryOrEL, eventType, callback) {
+        var element = !queryOrEL.addEventListener ? document.querySelector(queryOrEL) : queryOrEL;
+        if (element) {
+            element.addEventListener(eventType, function (e) {
+                callback(e, e.detail);
+            });
+        };
+    },
+    append: function append(parentEl, childText) {
+        var el = document.createElement('div');
+        el.innerHTML = childText;
+        parentEl && parentEl.appendChild(el.firstElementChild);
+        return el.firstElementChild;
+    },
+    prepend: function prepend(el) {
+        var docFrag = document.createDocumentFragment();
+
+        for (var _len = arguments.length, containers = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            containers[_key - 1] = arguments[_key];
+        }
+
+        containers.forEach(function (argItem) {
+            var isNode = el instanceof window.Node;
+            docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
+        });
+
+        el.insertBefore(docFrag, el.firstChild);
+    },
+    makeElement: function makeElement(html) {
+        var el = document.createElement('temp');
+        el.innerHTML = html;
+        return el.firstElementChild;
+    },
+    remove: function remove(el) {
+        el.parentElement.removeChild(el);
+    }
+};
+
+exports.default = tools;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+(function(self) {
+  'use strict';
+
+  if (self.fetch) {
+    return
+  }
+
+  var support = {
+    searchParams: 'URLSearchParams' in self,
+    iterable: 'Symbol' in self && 'iterator' in Symbol,
+    blob: 'FileReader' in self && 'Blob' in self && (function() {
+      try {
+        new Blob()
+        return true
+      } catch(e) {
+        return false
+      }
+    })(),
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
+  }
+
+  if (support.arrayBuffer) {
+    var viewClasses = [
+      '[object Int8Array]',
+      '[object Uint8Array]',
+      '[object Uint8ClampedArray]',
+      '[object Int16Array]',
+      '[object Uint16Array]',
+      '[object Int32Array]',
+      '[object Uint32Array]',
+      '[object Float32Array]',
+      '[object Float64Array]'
+    ]
+
+    var isDataView = function(obj) {
+      return obj && DataView.prototype.isPrototypeOf(obj)
+    }
+
+    var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+      return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+    }
+  }
+
+  function normalizeName(name) {
+    if (typeof name !== 'string') {
+      name = String(name)
+    }
+    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+      throw new TypeError('Invalid character in header field name')
+    }
+    return name.toLowerCase()
+  }
+
+  function normalizeValue(value) {
+    if (typeof value !== 'string') {
+      value = String(value)
+    }
+    return value
+  }
+
+  // Build a destructive iterator for the value list
+  function iteratorFor(items) {
+    var iterator = {
+      next: function() {
+        var value = items.shift()
+        return {done: value === undefined, value: value}
+      }
+    }
+
+    if (support.iterable) {
+      iterator[Symbol.iterator] = function() {
+        return iterator
+      }
+    }
+
+    return iterator
+  }
+
+  function Headers(headers) {
+    this.map = {}
+
+    if (headers instanceof Headers) {
+      headers.forEach(function(value, name) {
+        this.append(name, value)
+      }, this)
+    } else if (Array.isArray(headers)) {
+      headers.forEach(function(header) {
+        this.append(header[0], header[1])
+      }, this)
+    } else if (headers) {
+      Object.getOwnPropertyNames(headers).forEach(function(name) {
+        this.append(name, headers[name])
+      }, this)
+    }
+  }
+
+  Headers.prototype.append = function(name, value) {
+    name = normalizeName(name)
+    value = normalizeValue(value)
+    var oldValue = this.map[name]
+    this.map[name] = oldValue ? oldValue+','+value : value
+  }
+
+  Headers.prototype['delete'] = function(name) {
+    delete this.map[normalizeName(name)]
+  }
+
+  Headers.prototype.get = function(name) {
+    name = normalizeName(name)
+    return this.has(name) ? this.map[name] : null
+  }
+
+  Headers.prototype.has = function(name) {
+    return this.map.hasOwnProperty(normalizeName(name))
+  }
+
+  Headers.prototype.set = function(name, value) {
+    this.map[normalizeName(name)] = normalizeValue(value)
+  }
+
+  Headers.prototype.forEach = function(callback, thisArg) {
+    for (var name in this.map) {
+      if (this.map.hasOwnProperty(name)) {
+        callback.call(thisArg, this.map[name], name, this)
+      }
+    }
+  }
+
+  Headers.prototype.keys = function() {
+    var items = []
+    this.forEach(function(value, name) { items.push(name) })
+    return iteratorFor(items)
+  }
+
+  Headers.prototype.values = function() {
+    var items = []
+    this.forEach(function(value) { items.push(value) })
+    return iteratorFor(items)
+  }
+
+  Headers.prototype.entries = function() {
+    var items = []
+    this.forEach(function(value, name) { items.push([name, value]) })
+    return iteratorFor(items)
+  }
+
+  if (support.iterable) {
+    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+  }
+
+  function consumed(body) {
+    if (body.bodyUsed) {
+      return Promise.reject(new TypeError('Already read'))
+    }
+    body.bodyUsed = true
+  }
+
+  function fileReaderReady(reader) {
+    return new Promise(function(resolve, reject) {
+      reader.onload = function() {
+        resolve(reader.result)
+      }
+      reader.onerror = function() {
+        reject(reader.error)
+      }
+    })
+  }
+
+  function readBlobAsArrayBuffer(blob) {
+    var reader = new FileReader()
+    var promise = fileReaderReady(reader)
+    reader.readAsArrayBuffer(blob)
+    return promise
+  }
+
+  function readBlobAsText(blob) {
+    var reader = new FileReader()
+    var promise = fileReaderReady(reader)
+    reader.readAsText(blob)
+    return promise
+  }
+
+  function readArrayBufferAsText(buf) {
+    var view = new Uint8Array(buf)
+    var chars = new Array(view.length)
+
+    for (var i = 0; i < view.length; i++) {
+      chars[i] = String.fromCharCode(view[i])
+    }
+    return chars.join('')
+  }
+
+  function bufferClone(buf) {
+    if (buf.slice) {
+      return buf.slice(0)
+    } else {
+      var view = new Uint8Array(buf.byteLength)
+      view.set(new Uint8Array(buf))
+      return view.buffer
+    }
+  }
+
+  function Body() {
+    this.bodyUsed = false
+
+    this._initBody = function(body) {
+      this._bodyInit = body
+      if (!body) {
+        this._bodyText = ''
+      } else if (typeof body === 'string') {
+        this._bodyText = body
+      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+        this._bodyBlob = body
+      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+        this._bodyFormData = body
+      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+        this._bodyText = body.toString()
+      } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+        this._bodyArrayBuffer = bufferClone(body.buffer)
+        // IE 10-11 can't handle a DataView body.
+        this._bodyInit = new Blob([this._bodyArrayBuffer])
+      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+        this._bodyArrayBuffer = bufferClone(body)
+      } else {
+        throw new Error('unsupported BodyInit type')
+      }
+
+      if (!this.headers.get('content-type')) {
+        if (typeof body === 'string') {
+          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+        } else if (this._bodyBlob && this._bodyBlob.type) {
+          this.headers.set('content-type', this._bodyBlob.type)
+        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+        }
+      }
+    }
+
+    if (support.blob) {
+      this.blob = function() {
+        var rejected = consumed(this)
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return Promise.resolve(this._bodyBlob)
+        } else if (this._bodyArrayBuffer) {
+          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+        } else if (this._bodyFormData) {
+          throw new Error('could not read FormData body as blob')
+        } else {
+          return Promise.resolve(new Blob([this._bodyText]))
+        }
+      }
+
+      this.arrayBuffer = function() {
+        if (this._bodyArrayBuffer) {
+          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+        } else {
+          return this.blob().then(readBlobAsArrayBuffer)
+        }
+      }
+    }
+
+    this.text = function() {
+      var rejected = consumed(this)
+      if (rejected) {
+        return rejected
+      }
+
+      if (this._bodyBlob) {
+        return readBlobAsText(this._bodyBlob)
+      } else if (this._bodyArrayBuffer) {
+        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+      } else if (this._bodyFormData) {
+        throw new Error('could not read FormData body as text')
+      } else {
+        return Promise.resolve(this._bodyText)
+      }
+    }
+
+    if (support.formData) {
+      this.formData = function() {
+        return this.text().then(decode)
+      }
+    }
+
+    this.json = function() {
+      return this.text().then(JSON.parse)
+    }
+
+    return this
+  }
+
+  // HTTP methods whose capitalization should be normalized
+  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+  function normalizeMethod(method) {
+    var upcased = method.toUpperCase()
+    return (methods.indexOf(upcased) > -1) ? upcased : method
+  }
+
+  function Request(input, options) {
+    options = options || {}
+    var body = options.body
+
+    if (input instanceof Request) {
+      if (input.bodyUsed) {
+        throw new TypeError('Already read')
+      }
+      this.url = input.url
+      this.credentials = input.credentials
+      if (!options.headers) {
+        this.headers = new Headers(input.headers)
+      }
+      this.method = input.method
+      this.mode = input.mode
+      if (!body && input._bodyInit != null) {
+        body = input._bodyInit
+        input.bodyUsed = true
+      }
+    } else {
+      this.url = String(input)
+    }
+
+    this.credentials = options.credentials || this.credentials || 'omit'
+    if (options.headers || !this.headers) {
+      this.headers = new Headers(options.headers)
+    }
+    this.method = normalizeMethod(options.method || this.method || 'GET')
+    this.mode = options.mode || this.mode || null
+    this.referrer = null
+
+    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+      throw new TypeError('Body not allowed for GET or HEAD requests')
+    }
+    this._initBody(body)
+  }
+
+  Request.prototype.clone = function() {
+    return new Request(this, { body: this._bodyInit })
+  }
+
+  function decode(body) {
+    var form = new FormData()
+    body.trim().split('&').forEach(function(bytes) {
+      if (bytes) {
+        var split = bytes.split('=')
+        var name = split.shift().replace(/\+/g, ' ')
+        var value = split.join('=').replace(/\+/g, ' ')
+        form.append(decodeURIComponent(name), decodeURIComponent(value))
+      }
+    })
+    return form
+  }
+
+  function parseHeaders(rawHeaders) {
+    var headers = new Headers()
+    // Replace instances of \r\n and \n followed by at least one space or horizontal tab with a space
+    // https://tools.ietf.org/html/rfc7230#section-3.2
+    var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, ' ')
+    preProcessedHeaders.split(/\r?\n/).forEach(function(line) {
+      var parts = line.split(':')
+      var key = parts.shift().trim()
+      if (key) {
+        var value = parts.join(':').trim()
+        headers.append(key, value)
+      }
+    })
+    return headers
+  }
+
+  Body.call(Request.prototype)
+
+  function Response(bodyInit, options) {
+    if (!options) {
+      options = {}
+    }
+
+    this.type = 'default'
+    this.status = options.status === undefined ? 200 : options.status
+    this.ok = this.status >= 200 && this.status < 300
+    this.statusText = 'statusText' in options ? options.statusText : 'OK'
+    this.headers = new Headers(options.headers)
+    this.url = options.url || ''
+    this._initBody(bodyInit)
+  }
+
+  Body.call(Response.prototype)
+
+  Response.prototype.clone = function() {
+    return new Response(this._bodyInit, {
+      status: this.status,
+      statusText: this.statusText,
+      headers: new Headers(this.headers),
+      url: this.url
+    })
+  }
+
+  Response.error = function() {
+    var response = new Response(null, {status: 0, statusText: ''})
+    response.type = 'error'
+    return response
+  }
+
+  var redirectStatuses = [301, 302, 303, 307, 308]
+
+  Response.redirect = function(url, status) {
+    if (redirectStatuses.indexOf(status) === -1) {
+      throw new RangeError('Invalid status code')
+    }
+
+    return new Response(null, {status: status, headers: {location: url}})
+  }
+
+  self.Headers = Headers
+  self.Request = Request
+  self.Response = Response
+
+  self.fetch = function(input, init) {
+    return new Promise(function(resolve, reject) {
+      var request = new Request(input, init)
+      var xhr = new XMLHttpRequest()
+
+      xhr.onload = function() {
+        var options = {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+        }
+        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
+        var body = 'response' in xhr ? xhr.response : xhr.responseText
+        resolve(new Response(body, options))
+      }
+
+      xhr.onerror = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.ontimeout = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.open(request.method, request.url, true)
+
+      if (request.credentials === 'include') {
+        xhr.withCredentials = true
+      } else if (request.credentials === 'omit') {
+        xhr.withCredentials = false
+      }
+
+      if ('responseType' in xhr && support.blob) {
+        xhr.responseType = 'blob'
+      }
+
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value)
+      })
+
+      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+    })
+  }
+  self.fetch.polyfill = true
+})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ })
+/******/ ]);
+//# sourceMappingURL=adv_gigya.js.map
