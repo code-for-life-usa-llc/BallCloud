@@ -1,0 +1,173 @@
+Enabler.setProfileId(10402981);
+var devDynamicContent = {};
+var template = 'tabbed';
+devDynamicContent.parent = [{}];
+devDynamicContent.parent[0]._id = 0;
+devDynamicContent.parent[0].id = '0';
+devDynamicContent.parent[0].label = 'default_default';
+devDynamicContent.parent[0].rpt_dimension_year = 'default';
+devDynamicContent.parent[0].rpt_dimension_model = '';
+devDynamicContent.parent[0].rpt_dimension_trim = '';
+devDynamicContent.parent[0].rpt_dimension_template = 'default';
+devDynamicContent.parent[0].nameplate = 'default';
+devDynamicContent.parent[0].type_of_creative = 'default';
+devDynamicContent.parent[0].template = template;
+devDynamicContent.parent[0].headline1 = 'The 2019 chrysler';
+devDynamicContent.parent[0].headline2 = 'Pacifica';
+devDynamicContent.parent[0].nameplate_image = {};
+devDynamicContent.parent[0].nameplate_image.Type = 'file';
+devDynamicContent.parent[0].nameplate_image.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.parent[0].nameplate_image_alt = {};
+devDynamicContent.parent[0].nameplate_image_alt.Type = 'file';
+devDynamicContent.parent[0].nameplate_image_alt.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.parent[0].logo = {};
+devDynamicContent.parent[0].logo.Type = 'file';
+devDynamicContent.parent[0].logo.Url = template + '-logo.png';
+devDynamicContent.parent[0].logo_alt = {};
+devDynamicContent.parent[0].logo_alt.Type = 'file';
+devDynamicContent.parent[0].logo_alt.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.parent[0].config = '';
+devDynamicContent.parent[0].config_data = '';
+devDynamicContent.parent[0].override_image_1 = {};
+devDynamicContent.parent[0].override_image_1.Type = 'file';
+devDynamicContent.parent[0].override_image_1.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.parent[0].override_image_2 = {};
+devDynamicContent.parent[0].override_image_2.Type = 'file';
+devDynamicContent.parent[0].override_image_2.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.parent[0].override_image_3 = {};
+devDynamicContent.parent[0].override_image_3.Type = 'file';
+devDynamicContent.parent[0].override_image_3.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.endemic_images = [{}];
+devDynamicContent.endemic_images[0]._id = 0;
+devDynamicContent.endemic_images[0].id = 0;
+devDynamicContent.endemic_images[0].label = 'default';
+devDynamicContent.endemic_images[0].rpt_dimension_color = 'RED';
+devDynamicContent.endemic_images[0].rpt_dimension_color_version = '';
+devDynamicContent.endemic_images[0].endemic_image = {};
+devDynamicContent.endemic_images[0].endemic_image.Type = 'file';
+devDynamicContent.endemic_images[0].endemic_image.Url = './spread.png';
+devDynamicContent.endemic_images[0].endemic_image_alt = {};
+devDynamicContent.endemic_images[0].endemic_image_alt.Type = 'file';
+devDynamicContent.endemic_images[0].endemic_image_alt.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.endemic_images[0].color_pallete = 'orange';
+devDynamicContent.endemic_images[0].primary_color = '#88FF00';
+devDynamicContent.endemic_images[0].secondary_color = '#44AA00';
+devDynamicContent.endemic_images[0].config = '';
+devDynamicContent.endemic_images[0].config_data = '';
+devDynamicContent.endemic_images[0].override_image_1 = {};
+devDynamicContent.endemic_images[0].override_image_1.Type = 'file';
+devDynamicContent.endemic_images[0].override_image_1.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.endemic_images[0].override_image_2 = {};
+devDynamicContent.endemic_images[0].override_image_2.Type = 'file';
+devDynamicContent.endemic_images[0].override_image_2.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.endemic_images[0].override_image_3 = {};
+devDynamicContent.endemic_images[0].override_image_3.Type = 'file';
+devDynamicContent.endemic_images[0].override_image_3.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages = [{}];
+devDynamicContent.messages[0]._id = 0;
+devDynamicContent.messages[0].id = '0';
+devDynamicContent.messages[0].label = 'default_default';
+devDynamicContent.messages[0].rpt_dimension_pillar = 'default';
+devDynamicContent.messages[0].rpt_dimension_message_version = 'V1';
+devDynamicContent.messages[0].tab_1 = 'Technology';
+devDynamicContent.messages[0].image_1 = {};
+devDynamicContent.messages[0].image_1.Type = 'file';
+devDynamicContent.messages[0].image_1.Url = './' + template + '-bg-1.jpg';
+devDynamicContent.messages[0].alt_image_1 = {};
+devDynamicContent.messages[0].alt_image_1.Type = 'file';
+devDynamicContent.messages[0].alt_image_1.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].copy_1 = 'Vestobul mum pita do amew condimetum wom maec as contetur—augue monquet WEMMAM ON';
+devDynamicContent.messages[0].sub_copy_1 = '';
+devDynamicContent.messages[0].tab_2 = 'Performance';
+devDynamicContent.messages[0].image_2 = {};
+devDynamicContent.messages[0].image_2.Type = 'file';
+devDynamicContent.messages[0].image_2.Url = './' + template + '-bg-2.jpg';
+devDynamicContent.messages[0].alt_image_2 = {};
+devDynamicContent.messages[0].alt_image_2.Type = 'file';
+devDynamicContent.messages[0].alt_image_2.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].copy_2 = 'Vesobumm mum siou et amew condo—mentum neque maem las consectetur augue MPGWO non apiquet mhawelmus venennattyss wand Vestobul mum pita';
+devDynamicContent.messages[0].sub_copy_2 = '';
+devDynamicContent.messages[0].tab_3 = 'Capability';
+devDynamicContent.messages[0].image_3 = {};
+devDynamicContent.messages[0].image_3.Type = 'file';
+devDynamicContent.messages[0].image_3.Url = './' + template + '-bg-3.jpg';
+devDynamicContent.messages[0].alt_image_3 = {};
+devDynamicContent.messages[0].alt_image_3.Type = 'file';
+devDynamicContent.messages[0].alt_image_3.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].copy_3 = 'Vesobumm mum{®} siou et amew condo—mentum[2] neque maem las consectetur{®} augue MPGWO non apiquet mhawelmus venennattyss';
+devDynamicContent.messages[0].sub_copy_3 = '';
+devDynamicContent.messages[0].tab_4 = '';
+devDynamicContent.messages[0].image_4 = {};
+devDynamicContent.messages[0].image_4.Type = 'file';
+devDynamicContent.messages[0].image_4.Url = '';
+devDynamicContent.messages[0].alt_image_4 = {};
+devDynamicContent.messages[0].alt_image_4.Type = 'file';
+devDynamicContent.messages[0].alt_image_4.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].copy_4 = '';
+devDynamicContent.messages[0].sub_copy_4 = '';
+devDynamicContent.messages[0].tab_5 = '';
+devDynamicContent.messages[0].image_5 = {};
+devDynamicContent.messages[0].image_5.Type = 'file';
+devDynamicContent.messages[0].image_5.Url = '';
+devDynamicContent.messages[0].alt_image_5 = {};
+devDynamicContent.messages[0].alt_image_5.Type = 'file';
+devDynamicContent.messages[0].alt_image_5.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].copy_5 = '';
+devDynamicContent.messages[0].sub_copy_5 = '';
+devDynamicContent.messages[0].legal = '\u00A92018 FCA US LLC. All Rights Reserved. Fiat is a registered trademark of FCA US LLC.';
+devDynamicContent.messages[0].background_exit = {};
+devDynamicContent.messages[0].background_exit.Url = 'https://en.wikipedia.org/wiki/0';
+devDynamicContent.messages[0].active = true;
+devDynamicContent.messages[0].config = 'OVER-18_FT500_0_APP-V3';
+devDynamicContent.messages[0].config_data = JSON.stringify({
+    overrides: [{
+      "tab": "messages",
+      "column": "legal",
+      "newValue": "new legal",
+      "conditions" : [{
+        "tab": "endemicImages",
+        "column": "rptDimensionColor",
+        "expectedValue": "RED",
+      },
+      {
+        "tab": "messages",
+        "column": "id",
+        "expectedValue": "0",
+      }]
+    }]
+});
+devDynamicContent.messages[0].override_image_1 = {};
+devDynamicContent.messages[0].override_image_1.Type = 'file';
+devDynamicContent.messages[0].override_image_1.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].override_image_2 = {};
+devDynamicContent.messages[0].override_image_2.Type = 'file';
+devDynamicContent.messages[0].override_image_2.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.messages[0].override_image_3 = {};
+devDynamicContent.messages[0].override_image_3.Type = 'file';
+devDynamicContent.messages[0].override_image_3.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.ctas = [{}];
+devDynamicContent.ctas[0]._id = 0;
+devDynamicContent.ctas[0].id = '0';
+devDynamicContent.ctas[0].label = 'default_BMO';
+devDynamicContent.ctas[0].rpt_dimension_cta_color = 'RED';
+devDynamicContent.ctas[0].rpt_dimension_cta_version = '';
+devDynamicContent.ctas[0].rpt_dimension_cta1 = 'BMO';
+devDynamicContent.ctas[0].rpt_dimension_cta2 = '';
+devDynamicContent.ctas[0].text_cta1 = 'SEARCH INVENTORY';
+devDynamicContent.ctas[0].exit_cta1 = {};
+devDynamicContent.ctas[0].exit_cta1.Url = 'https://www.fiatusa.com/mktcode/index.html?app=bmo&bid=%ebuy!&sid=%esid!&pid=%epid!&adid=%eaid!&cid=%ecid!&buytype=LF&TR=1&channel=display';
+devDynamicContent.ctas[0].text_cta2 = '';
+devDynamicContent.ctas[0].exit_cta2 = {};
+devDynamicContent.ctas[0].exit_cta2.Url = 'https://en.wikipedia.org/wiki/2';
+devDynamicContent.ctas[0].config = '';
+devDynamicContent.ctas[0].config_data = '';
+devDynamicContent.ctas[0].override_image_1 = {};
+devDynamicContent.ctas[0].override_image_1.Type = 'file';
+devDynamicContent.ctas[0].override_image_1.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.ctas[0].override_image_2 = {};
+devDynamicContent.ctas[0].override_image_2.Type = 'file';
+devDynamicContent.ctas[0].override_image_2.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+devDynamicContent.ctas[0].override_image_3 = {};
+devDynamicContent.ctas[0].override_image_3.Type = 'file';
+devDynamicContent.ctas[0].override_image_3.Url = 'https://s0.2mdn.net/ads/richmedia/studio/40536653/40290727_20151216131436813_dead_pixel.png';
+Enabler.setDevDynamicContent(devDynamicContent);

@@ -1,0 +1,16 @@
+window.SparrowConfig = {
+    "origin": "mlive",
+    "title": "Mlive",
+    "environment": "prod",
+    "version": "1.0",
+    "preinit": ["user-context"],
+    "events": [{
+        "type": ["pageview"],
+        "options": [],
+        "selector": "window"
+    }, {
+        "type": ["timespent"],
+        "options": [],
+        "selector": "window"
+    }]
+}
