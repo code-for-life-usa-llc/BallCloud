@@ -1,0 +1,686 @@
+/*
+    ***** GIGYA SHAREBAR STYLES *****
+*/
+/* define gigya share object */
+.adi-share .gig-button-container,
+.adi-share .gig-button-more,
+.adi-share .gig-count-total {
+  width: 48px;
+  height: 48px;
+  margin: 12px 0 0 10px;
+  padding: 0;
+}
+.adi-share .gig-button-container img {
+  width: 48px;
+  height: 48px;
+}
+.adi-share.horizontal:after,
+.adi-share[data-layout="horizontal"]:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.adi-share.horizontal .gig-share-bar-container,
+.adi-share.horizontal .gig-button-more,
+.adi-share.horizontal .gig-button-sms,
+.adi-share.horizontal .gig-count-total,
+.adi-share[data-layout="horizontal"] .gig-share-bar-container,
+.adi-share[data-layout="horizontal"] .gig-button-more,
+.adi-share[data-layout="horizontal"] .gig-button-sms,
+.adi-share[data-layout="horizontal"] .gig-count-total {
+  float: left;
+}
+.adi-share[data-layout="horizontal"] .gig-more-flyout .gig-share-bar-container,
+.adi-share.horizontal .gig-more-flyout .gig-share-bar-container {
+  float: none;
+}
+.flyout-anchor {
+  position: relative;
+}
+.adi-share .sharer {
+  width: 100%;
+  height: 100%;
+}
+#social_top.adi-share {
+  background-image: none;
+}
+#social_share_phone {
+  display: none;
+}
+/* social icons */
+.adi-share [class*="gig-button-container-"] .sharer,
+.gig-button-more .sharer,
+.gig-button-sms .sharer {
+  position: relative;
+  background: url('/static/common/img/sprites/svg/sprite.svg') no-repeat;
+  background-size: auto 100%;
+  cursor: pointer;
+}
+.adi-share [class*="gig-button-container-"] .sharer:hover:before,
+.gig-button-more .sharer:hover:before,
+.gig-button-sms .sharer:hover:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #e4e4e4;
+  border-radius: 50%;
+  z-index: -1;
+  -webkit-transform: scale(1.25);
+          transform: scale(1.25);
+}
+.adi-share [class*="gig-button-container-"] .sharer:after,
+.gig-button-more .sharer:after,
+.gig-button-sms .sharer:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+.adi-share .gig-button-more .sharer {
+  background-position: 26.63% 0;
+}
+.adi-share .gig-button-container-googleplus .sharer {
+  background-position: 13.35% 0;
+}
+.adi-share .gig-button-container-twitter .sharer {
+  background-position: 60% 0;
+}
+.adi-share .gig-button-container-facebook .sharer {
+  background-position: 6.7% 0;
+}
+.adi-share .gig-button-container-email .sharer {
+  background-position: 0 0;
+}
+.adi-share .gig-button-container-reddit .sharer {
+  background-position: 40% 0;
+}
+.adi-share .gig-button-container-linkedin .sharer {
+  background-position: 20% 0;
+}
+.adi-share .gig-button-container-pinterest .sharer {
+  background-position: 33.35% 0;
+}
+.adi-share .gig-button-container-tumblr .sharer {
+  background-position: 53.33% 0;
+}
+.adi-share .gig-button-sms .sharer {
+  background-position: 46.66% 0;
+}
+.adi-share .gig-button-container-whatsapp .sharer {
+  background-position: 73.33% 0;
+}
+.adi-share .gig-button-container-messenger .sharer {
+  background-position: 66.67% 0;
+  display: none;
+}
+.adi-share .gig-button-container-whatsapp {
+  display: none;
+}
+/* share count */
+.adi-share .gig-count-total {
+  text-align: center;
+  font-size: .8em;
+  line-height: 1;
+  margin-top: 16px;
+}
+.adi-share .gig-count-total .total {
+  font-size: 1.75em;
+  display: block;
+}
+.adi-share-flyout {
+  z-index: 10;
+}
+.adi-share .count span {
+  font-size: 16px;
+}
+/* flyout directions */
+.gig-more-flyout {
+  z-index: 100;
+  width: 300px;
+  position: absolute;
+  background-color: #fff;
+  padding: 1.25em;
+  max-width: 300px;
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
+}
+.east .gig-more-flyout {
+  left: 130%;
+  top: -10px;
+}
+.south .gig-more-flyout {
+  top: 90px;
+  left: -30px;
+}
+/* flyout arrows */
+.flyout-anchor:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1em solid black;
+  border-color: transparent transparent #fff #fff;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, .2);
+          box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, .2);
+  z-index: 101;
+}
+.flyout-anchor.east:before {
+  top: 0;
+  right: -100%;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.flyout-anchor.north:before {
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-45deg);
+  top: -10px;
+  left: 0;
+}
+.flyout-anchor.south:before {
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  top: 64px;
+  top: 4rem;
+  left: 85%;
+}
+.gig-more-flyout > span,
+.gig-more-flyout > h2 {
+  color: #ccc;
+  font-size: .8em;
+  font-family: sans-serif;
+}
+.gig-more-flyout > input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #666;
+  font-size: .9em;
+  display: block;
+  margin-top: .75em;
+  padding: .75em .75em .75em 2.5em;
+  width: 100%;
+  background: #f4f4f4 url('//static.advance.net/static/common/img/sprites/svg/link-1.svg') no-repeat 0.6em 50%;
+  background-size: 16px;
+  border: solid 1px #e7e7e7;
+}
+/* hide desktop sharebar hook unless in desktop mode */
+#social_share_desktop,
+.social_sidebar.sticky {
+  display: none;
+}
+#article .wrapper #social_mobile .CommentCount {
+  display: none;
+}
+/* social_simple display for hssn */
+.social_simple {
+  display: none;
+}
+/* RPSSL-282: Mobile share flyout overflow fix */
+/* ***** THIS IS TEMPORARY ******/
+.fyre.fyre-width-small .fyre-Share-link.fyre-mobile-action-button {
+  overflow: visible;
+}
+.fyre-mobile .adi-share .gig-share-bar-container,
+.fyre-mobile .adi-share .gig-button-more,
+.fyre-mobile .adi-share .gig-button-sms,
+.fyre-mobile .adi-share .gig-count-total {
+  float: left;
+}
+.fyre-mobile .east .gig-more-flyout {
+  top: 90px;
+  left: -80px;
+}
+.fyre-mobile .adi-share .gig-more-flyout:before {
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  top: 0;
+  left: 102px;
+}
+.fyre-mobile .adi-share.horizontal {
+  width: auto !important;
+  text-align: left;
+}
+.fyre-mobile .gig-bar-container.gig-share-bar-container {
+  display: inline;
+  float: none;
+}
+.fyre-mobile .gig-button-container-sms.gig-button-sms {
+  display: inline-block;
+  float: none;
+}
+.fyre .gig-more-flyout {
+  width: 235px;
+  text-align: left;
+}
+.fyre.fyre-mobile .gig-more-flyout {
+  width: 190px;
+}
+.fyre-mobile .gig-button-container-tumblr {
+  display: none;
+}
+/* RPSSPL-273: Fix vertical margin for signin message on mobile */
+.fyre.fyre-width-small.fyre-mobile .fyre-login-bar {
+  width: auto;
+  float: none;
+  position: relative;
+}
+.fyre-mobile .fyre-editor {
+  margin-top: 20px;
+}
+/*  Media Queries */
+@media screen and (min-width: 1025px) {
+  /* sticky styles for sharebar */
+  #social_share_desktop,
+  .social_sidebar.sticky {
+    display: block;
+    z-index: 10;
+  }
+  .CommentCount {
+    float: none;
+    margin: 0 0 3em 0;
+    max-width: 70px;
+    height: auto;
+    text-align: center;
+  }
+  .CommentCount a {
+    position: relative;
+    display: inline-block;
+    min-width: 50%;
+    height: 1em;
+    margin: 0 10px;
+    padding: 12px 6px;
+    font-size: 16px;
+    line-height: 1em;
+    text-align: center;
+    font-family: "Benton Sans", Arial, sans-serif;
+    color: #fff;
+    background: #0582ff;
+  }
+  .CommentCount a:visited {
+    color: #fff;
+  }
+  .CommentCount a:after {
+    content: '';
+    position: absolute;
+    bottom: -0.75em;
+    left: 40%;
+    border-top: .75em solid #0582ff;
+    border-right: .75em solid transparent;
+  }
+  .CommentCount .label {
+    display: none;
+  }
+  /* social sidebar */
+  .social_sidebar.sticky {
+    position: absolute;
+    left: -5em;
+    padding-top: 2.5em;
+    width: 70px;
+  }
+  /* ----- RPSSL-933 Adjusting Arrow for OAP Desktop ----- */
+  .cma .south .gig-more-flyout {
+    top: 64px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  #social_mobile {
+    display: block;
+    padding: 15px 0 10px 0;
+    font-size: 12px;
+    line-height: 17px;
+    color: #666;
+    overflow: visible !important;
+    margin: 15px 0;
+  }
+  #social_top {
+    display: none;
+  }
+  .south .gig-more-flyout {
+    top: 4rem;
+    left: -191px;
+  }
+  .flyout-anchor.east:before {
+    top: 0;
+    right: -100%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .flyout-anchor.north:before {
+    -webkit-transform: rotate(-35deg);
+    transform: rotate(-45deg);
+    top: -10px;
+    left: 0;
+  }
+  .flyout-anchor.south:before {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    top: 4rem;
+    left: 85%;
+  }
+}
+@media screen and (max-width: 768px) {
+  #social_mobile {
+    overflow: visible !important;
+    margin: 15px 0;
+  }
+  #article .wrapper #social_mobile .CommentCount {
+    display: inline;
+    float: none;
+    height: auto;
+    width: 100%;
+    margin: 0;
+  }
+  #article .wrapper #social_mobile .CommentCount a {
+    display: inline;
+    width: auto;
+    height: auto;
+    background-image: none;
+    color: #000;
+    font-size: 12px;
+  }
+  #article .wrapper #social_mobile .CommentCount .label {
+    color: #000;
+  }
+  /* resizing icons for mobile and tablet */
+  .adi-share .gig-button-container,
+  .adi-share .gig-button-more,
+  .adi-share .gig-button-sms,
+  .adi-share .gig-count-total {
+    width: 36px;
+    height: 36px;
+    margin: 4px 0 4px 10px;
+    padding: 0;
+  }
+  #social_share_phone-more-more-share {
+    width: auto !important;
+  }
+  .adi-share [class*="gig-button-container-"],
+  .adi-share .gig-button-more,
+  .gig-button-sms {
+    background-size: 570px 36px;
+  }
+  .adi-share .gig-button-container-linkedin {
+    display: none;
+  }
+  .adi-share .gig-button-container-whatsapp {
+    display: inline-block;
+  }
+  .horizontal .north .gig-more-flyout,
+  [data-layout="horizontal"] .north .gig-more-flyout {
+    top: -100px;
+    left: -205px;
+  }
+  .horizontal .south .gig-more-flyout,
+  [data-layout="horizontal"] .south .gig-more-flyout {
+    top: 92px;
+    left: -205px;
+  }
+  .horizontal .south .gig-more-flyout:before,
+  [data-layout="horizontal"] .south .gig-more-flyout:before {
+    left: 190px;
+  }
+  .gig-more-flyout {
+    width: 235px;
+    margin-left: 30px;
+    margin-top: -45px;
+  }
+  .flyout-anchor.south:before {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    top: 3rem;
+    left: 95%;
+  }
+  .fyre .gig-more-flyout {
+    width: 185px;
+  }
+  #article_container .social_simple .comments_button {
+    background-color: #5091CD;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#5091CD), to(#447FB6));
+    background-image: linear-gradient(to bottom, #5091CD, #447FB6);
+    border-radius: 4px;
+    height: 28px;
+    padding: 0 9px;
+    text-align: center;
+    font-size: 18px;
+    font-family: "Benton Sans", sans-serif;
+    line-height: 28px;
+    text-shadow: none;
+    color: white;
+    font-weight: bold;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .5);
+    margin-right: 5px;
+  }
+  .social_simple {
+    height: 28px;
+  }
+  .social_simple a {
+    float: left;
+    margin-right: 5px;
+  }
+  .social_simple .twitter,
+  .social_simple .facebook,
+  .social_simple .email {
+    width: 28px;
+    height: 28px;
+    background-size: 28px 28px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+  }
+  .social_simple.twitter {
+    background-image: url(/static/common/img/sprites/svg/sprite.svg);
+  }
+  .social_simple .facebook {
+    background-image: url(/static/common/img/sprites/svg/sprite.svg);
+  }
+  .social_simple .email {
+    background-image: url(/static/common/img/sprites/svg/sprite.svg);
+  }
+  .social_simple .smsbutton {
+    background-image: url(/static/common/img/sprites/svg/sprite.svg);
+  }
+}
+@media screen and (max-width: 480px) {
+  #social_share_phone {
+    display: inline;
+  }
+  .gig-bar-container.gig-share-bar-container {
+    overflow: visible;
+  }
+  /* centering sharebar for mobile */
+  #social_mobile {
+    position: relative;
+  }
+  #social_mobile > * {
+    position: relative;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+  #social_share_phone,
+  #article .wrapper #social_mobile .CommentCount {
+    display: inline-block;
+  }
+  #social_share_phone {
+    width: auto !important;
+  }
+  #article .wrapper #social_mobile .CommentCount {
+    text-align: center;
+  }
+  #social_share_phone .gig-bar-container div:first-child {
+    margin-left: 0;
+  }
+  .gig-more-flyout {
+    margin-left: 20px;
+  }
+  .horizontal .south .gig-more-flyout:before,
+  [data-layout="horizontal"] .south .gig-more-flyout:before {
+    left: 236px;
+  }
+  #article .wrapper #social_mobile .CommentCount .label,
+  #article .wrapper #social_mobile .CommentCount a {
+    color: #0088EE;
+    font-size: 12px;
+    margin: .25em;
+  }
+  .adi-share .gig-count-total {
+    margin: 9px 0 0 10px;
+  }
+}
+/**
+*
+* assorted overrides from static final
+*
+**/
+/***** updates for button flyout *****/
+.adi-share-flyout.btn .flyout-anchor.south:before {
+  top: 3em;
+}
+.adi-share-flyout.btn .south .gig-more-flyout {
+  top: 3em;
+}
+.adi-share-flyout.btn div.gig-button-container {
+  float: left;
+}
+/* ----- OAP Override ----- */
+.adi-share-auto {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: auto !important;
+  margin-bottom: 2em;
+  clear: both;
+}
+/**
+  * @stylesheet _gigya_notification_settings.less
+  * @parent main.less
+  *
+  * @description
+  * Non destructive fix for broken notificaiton panel,
+  * will be moving entire component out of Gigya UI Builder in
+  * subsequent update
+  *
+  **/
+@media only screen and (max-device-width: 768px) and (orientation: portrait) {
+  .gigya-screen-dialog-content {
+    padding: 25px 0 !important;
+    width: 100%;
+  }
+  .gigya-layout-cell {
+    width: 100% !important;
+  }
+}
+/*
+ *  RPSSL-723: Update flyout for off-canvas
+ *
+ *  @description
+ *  Nesting styles in #rtb-comments to allow for correct north/south flyout positioning.
+ *  Nesting further for .fyre-mobile since the previous south positioning is slightly different.
+*/
+#rtb-comments .fyre.fyre-width-small .fyre-comment-actions a {
+  overflow: visible;
+}
+#rtb-comments .south .gig-more-flyout {
+  top: 32px;
+  top: 2rem;
+  left: -32px;
+  left: -2rem;
+}
+#rtb-comments .north .gig-more-flyout {
+  bottom: 16px;
+  bottom: 1rem;
+  left: -32px;
+  left: -2rem;
+}
+#rtb-comments .flyout-anchor.south:before {
+  -webkit-transform: rotate(135deg);
+          transform: rotate(135deg);
+  top: 32px;
+  top: 2rem;
+  left: 32px;
+  left: 2rem;
+}
+#rtb-comments .flyout-anchor.north:before {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  top: -16px;
+  top: -1rem;
+  left: 0;
+}
+#rtb-comments .fyre-mobile .south .gig-more-flyout {
+  top: 80px;
+  top: 5rem;
+  left: -32px;
+  left: -2rem;
+}
+#rtb-comments .fyre-mobile .north .gig-more-flyout {
+  bottom: 16px;
+  bottom: 1rem;
+  left: -32px;
+  left: -2rem;
+}
+#rtb-comments .fyre-mobile .flyout-anchor.south:before {
+  -webkit-transform: rotate(135deg);
+          transform: rotate(135deg);
+  top: 36px;
+  top: 2.25rem;
+  left: 32px;
+  left: 2rem;
+}
+#rtb-comments .fyre-mobile .flyout-anchor.north:before {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  top: -16px;
+  top: -1rem;
+  left: 0;
+}
+.off-canvas .fyre.fyre-mobile .gig-more-flyout {
+  width: 220px;
+}
+.off-canvas .fyre.fyre-width-medium .gig-more-flyout {
+  width: 265px;
+}
+@media screen and (min-width: 1024px) {
+  .off-canvas .fyre.fyre-width-small .gig-more-flyout {
+    width: 265px;
+  }
+}
+/* ----- RPSSL-805 Safari Email Share Positioning Bug ----- */
+.modal_open > [id*="_showShareUI"] {
+  position: fixed !important;
+}
+/* ----- RPSSL-1042 Fixing CMA spacing issue ----- */
+body.cma .adi-share .gig-button-container {
+  margin-bottom: .5em;
+}
+/* ----- RPSSL-1204 Share bar is lop sided on mobile OAP page ----- */
+.cma .adi-share-auto {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+body.cma .adi-share .gig-count-total {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+/*# sourceMappingURL=adv_gigya_share.css.map*/
