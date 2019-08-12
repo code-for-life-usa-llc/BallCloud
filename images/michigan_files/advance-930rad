@@ -1,0 +1,6 @@
+
+var pxSegmentsIDs = "vlqzlp,g3y8w7,iv5n6q,2rs5i2,b0r6b4,ebqx88,9x0hkp,9zksqy,brtkew,4d356o,300003,121100,129900,114405,129925,210000";
+
+if (typeof gotSegmentData != 'undefined') {
+  gotSegmentData( { "data": ["vlqzlp","g3y8w7","iv5n6q","2rs5i2","b0r6b4","ebqx88","9x0hkp","9zksqy","brtkew","4d356o","300003","121100","129900","114405","129925","210000"]} );
+};
